@@ -4,7 +4,7 @@ import { fetchWeather } from "../services/api"
 class WeatherContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {city: "Kazan"};
+    this.state = {city: "Moscow"};
   }
 
   componentDidMount() {
