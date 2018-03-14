@@ -1,52 +1,44 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import fetchWeather from "../services/api"
+import WeatherPage from '../components/WeatherPage'
 
 class WeatherContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {city: "Moscow"};
+    this.state = {
+      city: "Moscow",
+      hasError: false
+    };
   }
 
   componentDidMount() {
-    this.getWeather("New York");
+    this.getWeather("Kazan");
   }
 
   async getWeather(searchedCity = this.state.city) {
     try {
       const data = await fetchWeather(searchedCity);
-      const weather = data.list.map(dayWeather => ({ dayWeather }));
+      const weekWeather = data.list.map(dayWeather => ({ dayWeather }));
 
       this.setState({
-        weekWeather: weather,
-        city: searchedCity
+        weekWeather,
+        city: searchedCity,
+        country: data.city.country,
+        hasError: false
       });
     }
     catch(error) {
+      this.setState({hasError: true});
       console.log(error);
     }
   }
 
+  handleChange = e => {
+    this.getWeather(e.target.value);
+  }
+
   render() {
-    const days = {
-      sameDay: '[Today]',
-      nextDay: '[Tomorrow]',
-      nextWeek: 'dddd',
-      lastDay: '[Yesterday]',
-      lastWeek: '[Last] dddd',
-      sameElse: 'DD/MM/YYYY'
-  };
-    return (
-      <div>
-      {this.state.weekWeather && 
-        <ul>
-          {this.state.weekWeather.map((item,key) => (
-            <li key={key}>{`${moment(new Date(item.dayWeather.dt*1000)).calendar(null, days)} ${item.dayWeather.temp.day}`}</li>
-          ))}
-        </ul>
-      }
-      </div>
-    );
+    return <WeatherPage {...this.state} onChange={this.handleChange}/>
   }
 }
 
