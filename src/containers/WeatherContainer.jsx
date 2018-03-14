@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { fetchWeather } from "../services/api"
+import moment from 'moment';
+import fetchWeather from "../services/api"
 
 class WeatherContainer extends Component {
   constructor(props) {
@@ -33,12 +34,20 @@ class WeatherContainer extends Component {
   }
 
   render() {
+    const days = {
+      sameDay: '[Today]',
+      nextDay: '[Tomorrow]',
+      nextWeek: 'dddd',
+      lastDay: '[Yesterday]',
+      lastWeek: '[Last] dddd',
+      sameElse: 'DD/MM/YYYY'
+  };
     return (
       <div>
       {this.state.weekWeather && 
         <ul>
           {this.state.weekWeather.map((item,key) => (
-            <li key={key}>{`${new Date(item.dayWeather.dt*1000).toString().split(' ')[0]} ${item.dayWeather.temp.day}`}</li>
+            <li key={key}>{`${moment(new Date(item.dayWeather.dt*1000)).calendar(null, days)} ${item.dayWeather.temp.day}`}</li>
           ))}
         </ul>
       }
