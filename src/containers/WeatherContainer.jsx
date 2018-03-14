@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { debounce } from 'lodash';
 import fetchWeather from "../services/api"
 import WeatherPage from '../components/WeatherPage'
 
@@ -9,6 +10,8 @@ class WeatherContainer extends Component {
       city: "Moscow",
       hasError: false
     };
+
+    this.getWeatherDebounced = debounce(this.getWeather, 1000);
   }
 
   componentDidMount() {
@@ -34,7 +37,7 @@ class WeatherContainer extends Component {
   }
 
   handleChange = e => {
-    this.getWeather(e.target.value);
+    this.getWeatherDebounced(e.target.value);
   }
 
   render() {
