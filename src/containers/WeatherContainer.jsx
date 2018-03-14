@@ -9,28 +9,22 @@ class WeatherContainer extends Component {
   }
 
   componentDidMount() {
-    this.getWeather();
+    this.getWeather("New York");
   }
 
-  getWeather(searchedCity = this.state.city) {
-    fetchWeather(searchedCity)
-      .then((response) => {
-          var weather = response.list.map((dayWeather) => {
-            return {
-              dayWeather,
-              country: response.city.country,
-              city: response.city.name
-            }
-          });
+  async getWeather(searchedCity = this.state.city) {
+    try {
+      const data = await fetchWeather(searchedCity);
+      const weather = data.list.map(dayWeather => ({ dayWeather }));
 
-          this.setState({
-            weekWeather: weather,
-            city: this.state.searchedCity
-          });
-      })
-      .catch(error => {
-        console.log(error);
+      this.setState({
+        weekWeather: weather,
+        city: searchedCity
       });
+    }
+    catch(error) {
+      console.log(error);
+    }
   }
 
   render() {
