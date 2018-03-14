@@ -1,5 +1,5 @@
 let API_KEY = "d94bcd435b62a031771c35633f9f310a"
-let apiUrl = "http://api.openweathermap.org/data/2.5/1"
+let apiUrl = "http://api.openweathermap.org/data/2.5/"
 
 let fetchWeather = function(city) {
   let weeklyWeatherUrl =
