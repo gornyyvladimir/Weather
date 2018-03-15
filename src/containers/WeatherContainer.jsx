@@ -7,7 +7,7 @@ class WeatherContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      city: "Moscow",
+      city: "Kazan",
       hasError: false
     };
 
@@ -15,7 +15,7 @@ class WeatherContainer extends Component {
   }
 
   componentDidMount() {
-    this.getWeather("Kazan");
+    this.getWeather();
   }
 
   async getWeather(searchedCity = this.state.city) {
