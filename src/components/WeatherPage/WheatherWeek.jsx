@@ -1,6 +1,6 @@
 import React from 'react';
 import getDay from '../../helpers/date';
-import WheatherItem from './WheatherItem'
+import WheatherItem from './WheatherItem';
 
 const WheatherWeek = ({ weekWeather }) => (
   <ul>

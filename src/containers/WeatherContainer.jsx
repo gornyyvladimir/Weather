@@ -16,7 +16,7 @@ class WeatherContainer extends Component {
 
   componentDidMount() {
     this.getWeather();
-    this.getImage('snowfall');
+    // this.getImage('sun');
   }
 
   async getWeather(searchedCity = this.state.city) {
