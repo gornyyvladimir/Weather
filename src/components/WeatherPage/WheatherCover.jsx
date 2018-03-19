@@ -4,7 +4,7 @@ import ProgressiveImage from 'react-progressive-image';
 const WheatherCover = ({image, hasError}) => {
   const renderImage = () => {
     if(hasError) {
-      return;
+      return <p>Error</p>;
     }
     else if(!image) {
       return <p>Loading ...</p>
