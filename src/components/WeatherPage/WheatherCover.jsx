@@ -4,19 +4,20 @@ import styled from 'styled-components';
 import CityInput from './CityInput';
 
 const CoverWrapper = styled.div`
-  overflow: hidden;
+  /* overflow: hidden; */
 `;
 
 const Cover = styled.div`
   display: flex;
   flex-direction: column;
+  /* justify-content: center; */
   align-items: center;
   min-height: 60vh;
-  padding: 1rem;
+  /* padding: 1rem; */
   background: linear-gradient(to bottom, rgba(30, 75, 115, 0.5), rgba(255, 255, 255, 0)), url(${props => props.url});
   background-position: center center;
   background-size: cover;
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
 `;
 
 const Temperature = styled.span`
