@@ -7,8 +7,9 @@ const Input = styled.input`
   color: white;
   font-size: 22px;
   font-weight: 300;    
-  padding: 15px;
+  /* padding: 15px; */
   border: none;
+  border-bottom: 2px solid white;
   box-sizing:border-box;
   &:focus {
     outline: 0;
@@ -16,6 +17,7 @@ const Input = styled.input`
 `;
 
 const Wrapper = styled.div`
+  padding: 15px 30px;
   position: relative;
   align-self: stretch;
   margin-bottom: 10vh;
@@ -34,8 +36,7 @@ const Tooltip = styled.span`
 
 const CityInput = props => (
   <Wrapper>
-    <Input onChange={props.onChange}/>
-    <Tooltip>Kazan</Tooltip>
+    <Input onChange={props.onChange} type="text"/>
   </Wrapper>
 );
 
