@@ -2,21 +2,13 @@ import React from 'react';
 import WheatherWeek from './WheatherWeek';
 import WheatherCover from './WheatherCover';
 
-const WeatherPage = ({weekWeather, city, hasError, onChange, country, image}) => {
+const WeatherPage = props => {
 
   return(
       <div>
-        {
-          hasError ? <p>Error</p> : 
-          <div>
-            {`${city}, ${country ? country : ''}`}
-            {weekWeather && <WheatherWeek weekWeather={weekWeather}/>}
-          </div>
-        }
-        <input type="text" onChange={onChange} />
-        <div>
-          <WheatherCover image={image} hasError={hasError}/>
-        </div>
+        <WheatherCover {...props}/>
+        {props.weekWeather && <WheatherWeek weekWeather={props.weekWeather}/>}
+        <input type="text" onChange={props.onChange} />
       </div>
   );
 };

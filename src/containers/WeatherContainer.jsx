@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import { debounce } from 'lodash';
+import styled from 'styled-components';
+import breakpoint from 'styled-components-breakpoint';
 import { fetchWeather, fetchImage }  from "../services/api"
 import WeatherPage from '../components/WeatherPage'
+import defaulImage from './sun.jpg';
+
+const Container = styled.div`
+  margin: 0 auto;
+  width: 100%;
+`;
 
 class WeatherContainer extends Component {
   constructor(props) {
@@ -16,7 +24,7 @@ class WeatherContainer extends Component {
 
   componentDidMount() {
     this.getWeather();
-    // this.getImage('sun');
+    this.getImage('beach');
   }
 
   async getWeather(searchedCity = this.state.city) {
@@ -61,7 +69,15 @@ class WeatherContainer extends Component {
       console.log(response.data);
     }
     catch(error) {
-      this.setState({hasError: true});
+      // this.setState({hasError: true});
+      this.setState({
+        image: {
+          urls : {
+            regular: defaulImage,
+            thumb: defaulImage
+          }
+        }
+      });
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
@@ -86,7 +102,11 @@ class WeatherContainer extends Component {
   }
 
   render() {
-    return <WeatherPage {...this.state} onChange={this.handleChange}/>
+    return (
+      <Container>
+        <WeatherPage {...this.state} onChange={this.handleChange}/>
+      </Container>
+    );
   }
 }
 

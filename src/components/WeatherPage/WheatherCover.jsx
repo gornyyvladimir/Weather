@@ -1,7 +1,38 @@
 import React, { Fragment } from 'react';
 import ProgressiveImage from 'react-progressive-image';
+import styled from 'styled-components';
 
-const WheatherCover = ({image, hasError}) => {
+const CoverWrapper = styled.div`
+  overflow: hidden;
+`;
+
+const Cover = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  background: linear-gradient(to bottom, rgba(30, 75, 115, 0.5), rgba(255, 255, 255, 0)), url(${props => props.url});
+  background-position: center center;
+  background-size: cover;
+  transform: scale(1.1);
+`;
+
+const Temperature = styled.span`
+  font-size: 82px;
+  font-weight: 700;  
+  color: white;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+`;
+
+const City = styled.span`
+  font-size: 22px;
+  font-weight: 300;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);  
+`;
+
+const WheatherCover = ({image, hasError, city, country, weekWeather}) => {
   const renderImage = () => {
     if(hasError) {
       return <p>Error</p>;
@@ -13,9 +44,12 @@ const WheatherCover = ({image, hasError}) => {
       return (
         <ProgressiveImage src={image.urls.regular} placeholder={image.urls.small}>
           {(src, loading) => (
-            <div style={{overflow: `hidden`, width: `800px`, height: `600px`}}> 
-              <div style={{ transform: `scale(1.1)`, background: `url(${src})`, backgroundSize: 'contain', width: `800px`, height: `600px`}}/>
-            </div>
+            <CoverWrapper> 
+              <Cover url={src}>
+                <City>{`${city}, ${country}`}</City>
+                <Temperature>{weekWeather ? Math.floor(weekWeather[0].dayWeather.temp.day) : null}°</Temperature>
+              </Cover>
+            </CoverWrapper>
           )}
         </ProgressiveImage>
       );
