@@ -14,13 +14,14 @@ const UnstyledList = styled.ul`
 const Item = styled.li`
   position: relative;
   display: flex;
-  justify-content: space-between;
-  padding: 20px 40px;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 10px 40px;
 
   &:first-child::after {
     content: '';
     position: absolute;
-    top: 25px;
+    top: 35px;
     left: 15px;
     width: 0;
     height: 0;
@@ -39,6 +40,7 @@ const WheatherWeek = ({ weekWeather }) => (
         <WheatherItem 
           day={getDay(item.dayWeather.dt*1000)} 
           temp={item.dayWeather.temp.day}
+          weather={item.dayWeather.weather}
         />
       </Item>
     ))

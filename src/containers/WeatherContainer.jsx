@@ -38,6 +38,8 @@ class WeatherContainer extends Component {
         country: response.data.city.country,
         hasError: false
       });
+
+      console.log(this.state);
     }
     catch(error) {
       this.setState({hasError: true});
@@ -98,6 +100,9 @@ class WeatherContainer extends Component {
   }
 
   handleChange = e => {
+    //if cityName.lenghth < 3, dont make request
+    if(e.target.value.length < 3)
+      return;
     this.getWeatherDebounced(e.target.value);
   }
 
