@@ -25,13 +25,15 @@ const Temperature = styled.span`
   font-weight: 700;  
   color: white;
   text-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+  margin-bottom: auto;   
 `;
 
 const City = styled.span`
   font-size: 22px;
   font-weight: 300;
   color: white;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);  
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1); 
+  margin-top: auto; 
 `;
 
 const WheatherCover = ({image, hasError, city, country, weekWeather, onChange}) => {

@@ -34,7 +34,7 @@ class WeatherContainer extends Component {
 
       this.setState({
         weekWeather,
-        city: searchedCity,
+        city: response.data.city.name,
         country: response.data.city.country,
         hasError: false
       });

@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   padding: 15px 30px;
   position: relative;
   align-self: stretch;
-  margin-bottom: 10vh;
+  /* margin-bottom: 10vh; */
 `;
 
 const Tooltip = styled.span`
