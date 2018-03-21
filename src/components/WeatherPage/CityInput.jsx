@@ -36,7 +36,7 @@ const Tooltip = styled.span`
 
 const CityInput = props => (
   <Wrapper>
-    <Input onChange={props.onChange} type="text"/>
+    <Input onChange={props.onChange} type="text" value={props.value}/>
   </Wrapper>
 );
 

@@ -36,7 +36,7 @@ const City = styled.span`
   margin-top: auto; 
 `;
 
-const WheatherCover = ({image, hasError, city, country, weekWeather, onChange}) => {
+const WheatherCover = ({image, hasError, city, country, inputValue, weekWeather, onChange}) => {
   const renderImage = () => {
     if(hasError) {
       return <p>Error</p>;
@@ -50,7 +50,7 @@ const WheatherCover = ({image, hasError, city, country, weekWeather, onChange}) 
           {(src, loading) => (
             <CoverWrapper> 
               <Cover url={src}>
-                <CityInput onChange={onChange} />
+                <CityInput onChange={onChange} value={inputValue} />
                 <City>{`${city}, ${country}`}</City>
                 <Temperature>{weekWeather ? Math.floor(weekWeather[0].dayWeather.temp.day) : null}°</Temperature>
               </Cover>

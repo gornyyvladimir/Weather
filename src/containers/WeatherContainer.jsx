@@ -15,7 +15,8 @@ class WeatherContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      city: "Kazan",
+      inputValue: 'Kazan',
+      city: 'Kazan',
       hasError: false
     };
 
@@ -100,9 +101,15 @@ class WeatherContainer extends Component {
   }
 
   handleChange = e => {
+    this.setState({
+      inputValue: e.target.value
+    });
+    
     //if cityName.lenghth < 3, dont make request
-    if(e.target.value.length < 3)
+    if(!e.target.value.length) {
+      this.getWeatherDebounced.cancel();
       return;
+    }
     this.getWeatherDebounced(e.target.value);
   }
 
