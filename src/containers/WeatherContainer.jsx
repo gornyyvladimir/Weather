@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
 import { fetchWeather, fetchImage }  from "../services/api"
 import WeatherPage from '../components/WeatherPage'
-import defaulImage from './sun.jpg';
+import defaulImageBig from './big.jpeg';
+import defaulImageSmall from './small.jpeg';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -76,8 +77,8 @@ class WeatherContainer extends Component {
       this.setState({
         image: {
           urls : {
-            regular: defaulImage,
-            thumb: defaulImage
+            regular: defaulImageBig,
+            thumb: defaulImageSmall
           }
         }
       });

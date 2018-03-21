@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import WheatherWeek from './WheatherWeek';
 import WheatherCover from './WheatherCover';
 
 const WeatherPage = props => {
 
   return(
-      <div>
+      <Fragment>
         <WheatherCover {...props}/>
         {props.weekWeather && <WheatherWeek weekWeather={props.weekWeather}/>}
-      </div>
+      </Fragment>
   );
 };
 

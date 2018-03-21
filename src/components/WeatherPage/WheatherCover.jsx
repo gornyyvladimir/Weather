@@ -14,7 +14,7 @@ const Cover = styled.div`
   align-items: center;
   min-height: 60vh;
   /* padding: 1rem; */
-  background: linear-gradient(to bottom, rgba(30, 75, 115, 0.5), rgba(255, 255, 255, 0)), url(${props => props.url});
+  background: linear-gradient(to bottom, rgba(30, 75, 115, 0.5), rgba(255, 255, 255, 0)), ${props => props.url ? `url(${props.url})` : 'none'};
   background-position: center center;
   background-size: cover;
   /* transform: scale(1.1); */
@@ -37,17 +37,11 @@ const City = styled.span`
 `;
 
 const WheatherCover = ({image, hasError, city, country, inputValue, weekWeather, onChange}) => {
-  const renderImage = () => {
-    if(hasError) {
-      return <p>Error</p>;
-    }
-    else if(!image) {
-      return <p>Loading ...</p>
-    }
-    else {
+  const renderCover = () => {
+    if(image) {
       return (
-        <ProgressiveImage src={image.urls.regular} placeholder={image.urls.small}>
-          {(src, loading) => (
+        <ProgressiveImage src={image.urls.regular} placeholder={image.urls.thumb}>
+          {(src) => (
             <CoverWrapper> 
               <Cover url={src}>
                 <CityInput onChange={onChange} value={inputValue} />
@@ -59,9 +53,20 @@ const WheatherCover = ({image, hasError, city, country, inputValue, weekWeather,
         </ProgressiveImage>
       );
     }
+    else {
+      return (
+        <CoverWrapper> 
+          <Cover>
+            <CityInput onChange={onChange} value={inputValue} />
+            <City>{`${city}, ${country}`}</City>
+            <Temperature>{weekWeather ? Math.floor(weekWeather[0].dayWeather.temp.day) : null}°</Temperature>
+          </Cover>
+        </CoverWrapper>
+      );
+    }
   };
 
-  return renderImage();
+  return renderCover();
 };
 
 export default WheatherCover;
