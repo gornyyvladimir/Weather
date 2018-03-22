@@ -9,7 +9,6 @@ import defaulImageSmall from './small.jpeg';
 
 const Container = styled.div`
   margin: 0 auto;
-  width: 100%;
 `;
 
 class WeatherContainer extends Component {
