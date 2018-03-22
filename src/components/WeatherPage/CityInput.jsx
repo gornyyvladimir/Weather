@@ -7,10 +7,11 @@ const Input = styled.input`
   color: white;
   font-size: 22px;
   font-weight: 300;    
-  /* padding: 15px; */
   border: none;
   border-bottom: 2px solid white;
-  box-sizing:border-box;
+  border-color: ${props => props.hasError ? 'red' : 'white'};
+  transition: border-color 0.5s ease-in-out;
+  box-sizing: border-box;
   &:focus {
     outline: 0;
   }
@@ -20,7 +21,6 @@ const Wrapper = styled.div`
   padding: 15px 30px;
   position: relative;
   align-self: stretch;
-  /* margin-bottom: 10vh; */
 `;
 
 const Tooltip = styled.span`
@@ -36,7 +36,7 @@ const Tooltip = styled.span`
 
 const CityInput = props => (
   <Wrapper>
-    <Input onChange={props.onChange} type="text" value={props.value}/>
+    <Input onChange={props.onChange} type="text" value={props.value} hasError={props.hasError}/>
   </Wrapper>
 );
 

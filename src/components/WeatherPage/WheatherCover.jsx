@@ -44,7 +44,7 @@ const WheatherCover = ({image, hasError, city, country, inputValue, weekWeather,
           {(src) => (
             <CoverWrapper> 
               <Cover url={src}>
-                <CityInput onChange={onChange} value={inputValue} />
+                <CityInput onChange={onChange} value={inputValue} hasError={hasError}/>
                 <City>{`${city}, ${country}`}</City>
                 <Temperature>{weekWeather ? Math.floor(weekWeather[0].dayWeather.temp.day) : null}°</Temperature>
               </Cover>
@@ -57,7 +57,7 @@ const WheatherCover = ({image, hasError, city, country, inputValue, weekWeather,
       return (
         <CoverWrapper> 
           <Cover>
-            <CityInput onChange={onChange} value={inputValue} />
+            <CityInput onChange={onChange} value={inputValue} hasError={hasError}/>
             <City>{`${city}, ${country}`}</City>
             <Temperature>{weekWeather ? Math.floor(weekWeather[0].dayWeather.temp.day) : null}°</Temperature>
           </Cover>
