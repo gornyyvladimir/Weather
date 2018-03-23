@@ -115,7 +115,6 @@ class WeatherContainer extends Component {
       });
     }
     catch(error) {
-      this.setState({hasError: true});
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
@@ -132,6 +131,21 @@ class WeatherContainer extends Component {
         console.log('Error', error.message);
       }
       console.log(error.config);
+      if(error.config.url.toLowerCase().indexOf('unsplash') > -1) {
+        this.setState({
+          image: {
+            urls : {
+              regular: defaulImageBig,
+              thumb: defaulImageSmall
+            }
+          }
+        });
+        console.log("Image not work");
+      }
+      else {
+        this.setState({hasError: true});
+        console.log("Weather not work");
+      }
     }
   }
 
