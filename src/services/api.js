@@ -19,11 +19,12 @@ const fetchWeather = async (city) => {
     });
 }
 
-const fetchImage = async (query, orientation) => {
+const fetchImage = async (query, orientation = null, featured = null) => {
   return await axios.get(`${UNSPLASH_API_URL}/photos/random`, {
     params: {
       query,
       orientation,
+      featured,
     },
     headers: {
       Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`

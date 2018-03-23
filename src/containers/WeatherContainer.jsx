@@ -3,6 +3,7 @@ import { debounce } from 'lodash';
 import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
 import { fetchWeather, fetchImage }  from "../services/api"
+import { isUnsplash } from "../helpers/urlParser"
 import WeatherPage from '../components/WeatherPage'
 import defaulImageBig from './big.jpeg';
 import defaulImageSmall from './small.jpeg';
@@ -109,7 +110,7 @@ class WeatherContainer extends Component {
         hasError: false
       });
       
-      const image = await fetchImage(this.state.city, 'landscape');  
+      const image = await fetchImage(this.state.city);  
       this.setState({
         image: image.data
       });
@@ -131,7 +132,7 @@ class WeatherContainer extends Component {
         console.log('Error', error.message);
       }
       console.log(error.config);
-      if(error.config.url.toLowerCase().indexOf('unsplash') > -1) {
+      if(isUnsplash(error.config.url)) {
         this.setState({
           image: {
             urls : {
