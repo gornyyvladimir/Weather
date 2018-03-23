@@ -111,10 +111,11 @@ class WeatherContainer extends Component {
         hasError: false
       });
       
-      const image = await fetchImage(this.state.city);  
-      this.setState({
+      const image = await fetchImage(this.state.city); 
+      this.setState(prevState => ({
+        prevImage: prevState.image || null,
         image: image.data
-      });
+      }));
     }
     catch(error) {
       if (error.response) {

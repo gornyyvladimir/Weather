@@ -30,7 +30,7 @@ const City = styled.span`
 `;
 
 const WheatherCover = props => (
-  <ProgressiveImage src={props.image && props.image.urls.regular} placeholder={props.image && props.image.urls.thumb}>
+  <ProgressiveImage src={props.image && props.image.urls.regular} placeholder={props.prevImage && props.prevImage.urls.regular}>
     {(src) => (
       <Cover url={src}>
         <CityInput onChange={props.onChange} value={props.inputValue} hasError={props.hasError}/>
