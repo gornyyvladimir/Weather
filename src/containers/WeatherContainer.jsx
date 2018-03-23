@@ -21,11 +21,11 @@ class WeatherContainer extends Component {
     };
 
     this.getWeatherDebounced = debounce(this.getWeather, 1000);
+    this.getWeatherAndImageDebounced = debounce(this.getWeatherAndImage, 1000);    
   }
 
   componentDidMount() {
-    this.getWeather();
-    this.getImage('beach');
+    this.getWeatherAndImage();
   }
 
   async getWeather(searchedCity = this.state.city) {
@@ -39,8 +39,6 @@ class WeatherContainer extends Component {
         country: response.data.city.country,
         hasError: false
       });
-
-      console.log(this.state);
     }
     catch(error) {
       this.setState({hasError: true});
@@ -69,7 +67,6 @@ class WeatherContainer extends Component {
       this.setState({
         image: response.data
       });
-      console.log(response.data);
     }
     catch(error) {
       // this.setState({hasError: true});
@@ -100,6 +97,44 @@ class WeatherContainer extends Component {
     }
   }
 
+  async getWeatherAndImage(searchedCity = this.state.city) {
+    try {
+      const weather = await fetchWeather(searchedCity);
+      const weekWeather = weather.data.list.map(dayWeather => ({ dayWeather }));
+      
+      this.setState({
+        weekWeather,
+        city: weather.data.city.name,
+        country: weather.data.city.country,
+        hasError: false
+      });
+      
+      const image = await fetchImage(this.state.city, 'landscape');  
+      this.setState({
+        image: image.data
+      });
+    }
+    catch(error) {
+      this.setState({hasError: true});
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+      console.log(error.config);
+    }
+  }
+
   handleChange = e => {
     this.setState({
       inputValue: e.target.value
@@ -107,10 +142,10 @@ class WeatherContainer extends Component {
     
     //if cityName.lenghth < 3, dont make request
     if(!e.target.value.length) {
-      this.getWeatherDebounced.cancel();
+      this.getWeatherAndImageDebounced.cancel();
       return;
     }
-    this.getWeatherDebounced(e.target.value);
+    this.getWeatherAndImageDebounced(e.target.value);
   }
 
   render() {
