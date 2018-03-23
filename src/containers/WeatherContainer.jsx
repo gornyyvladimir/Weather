@@ -18,6 +18,7 @@ class WeatherContainer extends Component {
     this.state = {
       inputValue: 'Kazan',
       city: 'Kazan',
+      country: 'Ru',
       hasError: false
     };
 
