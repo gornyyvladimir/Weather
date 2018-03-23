@@ -111,7 +111,7 @@ class WeatherContainer extends Component {
         hasError: false
       });
       
-      const image = await fetchImage(this.state.city); 
+      const image = await fetchImage(weekWeather[0].dayWeather.weather[0].main); 
       this.setState(prevState => ({
         prevImage: prevState.image || null,
         image: image.data
