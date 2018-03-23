@@ -14,7 +14,6 @@ const UnstyledList = styled.ul`
 const Item = styled.li`
   position: relative;
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
   padding: 10px 40px;
 
