@@ -3,10 +3,8 @@ import { debounce } from 'lodash';
 import styled from 'styled-components';
 // import breakpoint from 'styled-components-breakpoint';
 import { fetchWeather, fetchImage }  from "../services/api"
-import { isUnsplash } from "../helpers/urlParser"
 import WeatherPage from '../components/WeatherPage'
-import defaulImageBig from './big.jpeg';
-import defaulImageSmall from './small.jpeg';
+import defaulImage from './big.jpeg';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -78,7 +76,7 @@ class WeatherContainer extends Component {
     }
     catch(error) {
       this.setState({
-        image: defaulImageBig
+        image: defaulImage
       });
       console.log("Image not work");
       if (error.response) {
