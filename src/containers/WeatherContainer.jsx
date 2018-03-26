@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { debounce } from 'lodash';
 import styled from 'styled-components';
-import breakpoint from 'styled-components-breakpoint';
+// import breakpoint from 'styled-components-breakpoint';
 import { fetchWeather, fetchImage }  from "../services/api"
 import { isUnsplash } from "../helpers/urlParser"
 import WeatherPage from '../components/WeatherPage'
@@ -134,7 +134,7 @@ class WeatherContainer extends Component {
         console.log('Error', error.message);
       }
       console.log(error.config);
-      if(isUnsplash(error.config.url)) {
+      if(error.config && isUnsplash(error.config.url)) {
         this.setState({
           image: {
             urls : {
