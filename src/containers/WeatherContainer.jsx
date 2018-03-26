@@ -32,9 +32,11 @@ class WeatherContainer extends Component {
   }
 
   async getWeatherAndImage(searchedCity = this.state.city, w = null, h = null) {
+    //weather request
     try {
       const weather = await fetchWeather(searchedCity);
-      const weekWeather = weather.data.list.map(dayWeather => ({ dayWeather }));
+      //var because wee need this in image request
+      var weekWeather = weather.data.list.map(dayWeather => ({ dayWeather }));
       
       this.setState({
         weekWeather,
@@ -42,14 +44,12 @@ class WeatherContainer extends Component {
         country: weather.data.city.country,
         hasError: false
       });
-      
-      const image = await fetchImage(weekWeather[0].dayWeather.weather[0].main, w, h); 
-      this.setState(prevState => ({
-        prevImage: prevState.image || null,
-        image: image.data.urls.custom
-      }));
     }
     catch(error) {
+      if(error.response.status === 404) {
+        this.setState({hasError: true});
+        console.log("City not found");
+      }
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
@@ -66,16 +66,37 @@ class WeatherContainer extends Component {
         console.log('Error', error.message);
       }
       console.log(error.config);
-      if(error.config && isUnsplash(error.config.url)) {
-        this.setState({
-          image: defaulImageBig
-        });
-        console.log("Image not work");
+      return;
+    }
+    //image request
+    try {
+      const image = await fetchImage(weekWeather[0].dayWeather.weather[0].main, w, h); 
+      this.setState(prevState => ({
+        prevImage: prevState.image || null,
+        image: image.data.urls.custom
+      }));
+    }
+    catch(error) {
+      this.setState({
+        image: defaulImageBig
+      });
+      console.log("Image not work");
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
       }
-      else {
-        this.setState({hasError: true});
-        console.log("Weather not work");
-      }
+      console.log(error.config);
     }
   }
 
@@ -93,6 +114,7 @@ class WeatherContainer extends Component {
   }
 
   render() {
+    console.log(this.state);    
     return (
       <Container>
         <WeatherPage {...this.state} onChange={this.handleChange}/>
