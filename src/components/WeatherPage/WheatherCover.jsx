@@ -48,7 +48,7 @@ const City = styled.span`
 `;
 
 const WheatherCover = props => (
-  <ProgressiveImage src={props.image && props.image.urls.custom} placeholder={props.prevImage && props.prevImage.urls.custom}>
+  <ProgressiveImage src={props.image && props.image} placeholder={props.prevImage && props.prevImage}>
     {(src, loading) => (
       <Cover url={src} loading>
         <Container>

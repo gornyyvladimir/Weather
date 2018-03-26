@@ -24,83 +24,11 @@ class WeatherContainer extends Component {
       height: window.innerHeight
     };
 
-    this.getWeatherDebounced = debounce(this.getWeather, 1000);
     this.getWeatherAndImageDebounced = debounce(this.getWeatherAndImage, 1000);    
   }
 
   componentDidMount() {
     this.getWeatherAndImage(this.state.city, this.state.width, this.state.height);
-    console.log(this.state);
-  }
-
-  async getWeather(searchedCity = this.state.city) {
-    try {
-      const response = await fetchWeather(searchedCity);
-      const weekWeather = response.data.list.map(dayWeather => ({ dayWeather }));
-
-      this.setState({
-        weekWeather,
-        city: response.data.city.name,
-        country: response.data.city.country,
-        hasError: false
-      });
-    }
-    catch(error) {
-      this.setState({hasError: true});
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
-      }
-      console.log(error.config);
-    }
-  }
-
-  async getImage(searchedImage = null, orientation = 'landscape') {
-    try {
-      const response = await fetchImage(searchedImage, orientation);
-      this.setState({
-        image: response.data
-      });
-    }
-    catch(error) {
-      // this.setState({hasError: true});
-      this.setState({
-        image: {
-          urls : {
-            regular: defaulImageBig,
-            custom: defaulImageBig,
-            thumb: defaulImageSmall
-          }
-        }
-      });
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
-      }
-      console.log(error.config);
-    }
   }
 
   async getWeatherAndImage(searchedCity = this.state.city, w = null, h = null) {
@@ -118,7 +46,7 @@ class WeatherContainer extends Component {
       const image = await fetchImage(weekWeather[0].dayWeather.weather[0].main, w, h); 
       this.setState(prevState => ({
         prevImage: prevState.image || null,
-        image: image.data
+        image: image.data.urls.custom
       }));
     }
     catch(error) {
@@ -140,13 +68,7 @@ class WeatherContainer extends Component {
       console.log(error.config);
       if(error.config && isUnsplash(error.config.url)) {
         this.setState({
-          image: {
-            urls : {
-              regular: defaulImageBig,
-              custom: defaulImageBig,
-              thumb: defaulImageSmall
-            }
-          }
+          image: defaulImageBig
         });
         console.log("Image not work");
       }
@@ -162,7 +84,7 @@ class WeatherContainer extends Component {
       inputValue: e.target.value
     });
     
-    //if cityName.lenghth < 3, dont make request
+    //dont make request
     if(!e.target.value.length) {
       this.getWeatherAndImageDebounced.cancel();
       return;
