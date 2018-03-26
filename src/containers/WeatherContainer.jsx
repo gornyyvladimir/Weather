@@ -111,11 +111,19 @@ class WeatherContainer extends Component {
     this.getWeatherAndImageDebounced(e.target.value, this.state.width, this.state.height);
   }
 
+  handleClick = (param) => (e) => { 
+    console.log("Param", param);
+    console.log("Event", e);    
+    console.log("Click");
+    this.setState({card: {param}});
+    
+  }
+
   render() {
     console.log(this.state);    
     return (
       <Container>
-        <WeatherPage {...this.state} onChange={this.handleChange}/>
+        <WeatherPage {...this.state} onChange={this.handleChange} onClick={this.handleClick}/>
       </Container>
     );
   }

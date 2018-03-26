@@ -31,11 +31,11 @@ const Item = styled.li`
   }
 `;
 
-const WheatherWeek = ({ weekWeather }) => (
+const WheatherWeek = ({ weekWeather, onClick }) => (
   <UnstyledList>
   {
     weekWeather && weekWeather.map((item, key) => (
-      <Item key={key}>
+      <Item key={key} onClick={onClick(key)}>
         <WheatherItem 
           day={getDay(item.dayWeather.dt*1000)} 
           temp={item.dayWeather.temp.day}
