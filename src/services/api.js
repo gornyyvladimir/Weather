@@ -19,10 +19,12 @@ const fetchWeather = async (city) => {
     });
 }
 
-const fetchImage = async (query, orientation = null, featured = null) => {
+const fetchImage = async (query, w = null, h = null, orientation = null, featured = null) => {
   return await axios.get(`${UNSPLASH_API_URL}/photos/random`, {
     params: {
       query,
+      w,
+      h,
       orientation,
       featured,
     },

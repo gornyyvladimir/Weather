@@ -4,13 +4,31 @@ import styled from 'styled-components';
 import CityInput from './CityInput';
 
 const Cover = styled.div`
+  position: relative;
+  background: ${props => props.url ? `url(${props.url})` : 'none'};
+  background-position: center center;
+  background-size: cover;
+  transition: background ease-in-out 1s;
+  z-index: 1;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(30, 75, 115, 0.5), rgba(255, 255, 255, 0));
+    z-index: 2;
+  }
+`;
+
+const Container = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 60vh;
-  background: linear-gradient(to bottom, rgba(30, 75, 115, 0.5), rgba(255, 255, 255, 0)), ${props => props.url ? `url(${props.url})` : 'none'};
-  background-position: center center;
-  background-size: cover;
+  min-height: 60vh;      
+  z-index: 3;
 `;
 
 const Temperature = styled.span`
@@ -30,12 +48,14 @@ const City = styled.span`
 `;
 
 const WheatherCover = props => (
-  <ProgressiveImage src={props.image && props.image.urls.regular} placeholder={props.prevImage && props.prevImage.urls.regular}>
-    {(src) => (
-      <Cover url={src}>
-        <CityInput onChange={props.onChange} value={props.inputValue} hasError={props.hasError}/>
-        <City>{`${props.city}, ${props.country}`}</City>
-        <Temperature>{props.weekWeather ? Math.floor(props.weekWeather[0].dayWeather.temp.day) : null}°</Temperature>
+  <ProgressiveImage src={props.image && props.image.urls.custom} placeholder={props.prevImage && props.prevImage.urls.custom}>
+    {(src, loading) => (
+      <Cover url={src} loading>
+        <Container>
+          <CityInput onChange={props.onChange} value={props.inputValue} hasError={props.hasError}/>
+          <City>{`${props.city}, ${props.country}`}</City>
+          <Temperature>{props.weekWeather ? Math.floor(props.weekWeather[0].dayWeather.temp.day) : null}°</Temperature>
+        </Container>
       </Cover>
     )}
   </ProgressiveImage>

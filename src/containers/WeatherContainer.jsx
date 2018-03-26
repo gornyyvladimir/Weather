@@ -19,7 +19,9 @@ class WeatherContainer extends Component {
       inputValue: 'Kazan',
       city: 'Kazan',
       country: 'Ru',
-      hasError: false
+      hasError: false,
+      width: window.innerWidth,
+      height: window.innerHeight
     };
 
     this.getWeatherDebounced = debounce(this.getWeather, 1000);
@@ -27,7 +29,8 @@ class WeatherContainer extends Component {
   }
 
   componentDidMount() {
-    this.getWeatherAndImage();
+    this.getWeatherAndImage(this.state.city, this.state.width, this.state.height);
+    console.log(this.state);
   }
 
   async getWeather(searchedCity = this.state.city) {
@@ -76,6 +79,7 @@ class WeatherContainer extends Component {
         image: {
           urls : {
             regular: defaulImageBig,
+            custom: defaulImageBig,
             thumb: defaulImageSmall
           }
         }
@@ -99,7 +103,7 @@ class WeatherContainer extends Component {
     }
   }
 
-  async getWeatherAndImage(searchedCity = this.state.city) {
+  async getWeatherAndImage(searchedCity = this.state.city, w = null, h = null) {
     try {
       const weather = await fetchWeather(searchedCity);
       const weekWeather = weather.data.list.map(dayWeather => ({ dayWeather }));
@@ -111,7 +115,7 @@ class WeatherContainer extends Component {
         hasError: false
       });
       
-      const image = await fetchImage(weekWeather[0].dayWeather.weather[0].main); 
+      const image = await fetchImage(weekWeather[0].dayWeather.weather[0].main, w, h); 
       this.setState(prevState => ({
         prevImage: prevState.image || null,
         image: image.data
@@ -139,6 +143,7 @@ class WeatherContainer extends Component {
           image: {
             urls : {
               regular: defaulImageBig,
+              custom: defaulImageBig,
               thumb: defaulImageSmall
             }
           }
@@ -162,7 +167,7 @@ class WeatherContainer extends Component {
       this.getWeatherAndImageDebounced.cancel();
       return;
     }
-    this.getWeatherAndImageDebounced(e.target.value);
+    this.getWeatherAndImageDebounced(e.target.value, this.state.width, this.state.height);
   }
 
   render() {
