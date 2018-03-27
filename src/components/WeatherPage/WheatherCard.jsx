@@ -1,8 +1,30 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+`;
+
+const fadeOutDown = keyframes`
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+`;
 
 const Container = styled.div`
-  display: ${props => props.param ? 'block' : 'none'};
   position: fixed;
   top: 0;
   left: 0;
@@ -16,16 +38,19 @@ const Card = styled.div`
   width: 100%;
   height: 100%;
   background: white;  
-  transition: transform ease-in-out 0.8s;
+  animation-name: ${props => props.animation ? `${fadeInUp}` : `${fadeOutDown}`};
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  /* transition: transform ease-in-out 0.8s;
   transform-style: preserve-3d;
   transform-origin: left center;
-  transform: ${props => props.param ? 'rotateY(0)' : 'rotateY(180deg)'};
+  transform: ${props => props.param ? 'rotateY(0)' : 'rotateY(180deg)'}; */
 `;
 
 const WheatherCard = (props) => (
   <Container param={props.param}>
-  {console.log(props.param)}
-    <Card param={props.param}>1</Card>    
+  {console.log(props)}
+    <Card param={props.param} animation={props.animation} onClick={props.onClose}>1</Card>    
   </Container>
 );
 

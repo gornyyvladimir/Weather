@@ -115,15 +115,23 @@ class WeatherContainer extends Component {
     console.log("Param", param);
     console.log("Event", e);    
     console.log("Click");
-    this.setState({card: {param}});
-    
+    this.setState({card: {param}, animation: true});
   }
+
+  handleClose = (e) => {
+    console.log("Here");
+    // this.setState({card: null});   
+    this.setState({animation: false});
+    setTimeout(() => {
+      this.setState({card: null});
+    }, 1000);     
+  };
 
   render() {
     console.log(this.state);    
     return (
       <Container>
-        <WeatherPage {...this.state} onChange={this.handleChange} onClick={this.handleClick}/>
+        <WeatherPage {...this.state} onChange={this.handleChange} onClick={this.handleClick} onClose={this.handleClose}/>
       </Container>
     );
   }
