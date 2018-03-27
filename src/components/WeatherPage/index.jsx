@@ -7,7 +7,7 @@ const WeatherPage = props => (
       <Fragment>
         <WheatherCover {...props}/>
         {props.weekWeather && <WheatherWeek weekWeather={props.weekWeather} onClick={props.onClick}/>}
-        {props.card && <WheatherCard/>}        
+        <WheatherCard {...props.card}/>
       </Fragment>
 );
 
