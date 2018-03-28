@@ -16,6 +16,7 @@ const Item = styled.li`
   display: flex;
   align-items: center;
   padding: 10px 40px;
+  cursor: pointer;
 
   &:first-child::after {
     content: '';
@@ -35,7 +36,7 @@ const WheatherWeek = ({ weekWeather, onClick }) => (
   <UnstyledList>
   {
     weekWeather && weekWeather.map((item, key) => (
-      <Item key={key} onClick={onClick(key)}>
+      <Item key={key} onClick={onClick({weekWeather, key})}>
         <WheatherItem 
           day={getDay(item.dayWeather.dt*1000)} 
           temp={item.dayWeather.temp.day}

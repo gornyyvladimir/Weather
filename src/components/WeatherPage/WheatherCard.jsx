@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
 
 const fadeInUp = keyframes`
   from {
@@ -31,27 +32,73 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   z-index: 3;
-  perspective: 800px;
 `;
 
 const Card = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
   background: white;  
   animation-name: ${props => props.animation ? `${fadeInUp}` : `${fadeOutDown}`};
   animation-duration: 1s;
   animation-fill-mode: both;
-  /* transition: transform ease-in-out 0.8s;
-  transform-style: preserve-3d;
-  transform-origin: left center;
-  transform: ${props => props.param ? 'rotateY(0)' : 'rotateY(180deg)'}; */
 `;
 
-const WheatherCard = (props) => (
-  <Container param={props.param}>
-  {console.log(props)}
-    <Card param={props.param} animation={props.animation} onClick={props.onClose}>1</Card>    
-  </Container>
-);
+const Close = styled.button`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 2rem;
+  height: 2rem;
+  background: none;
+  z-index: 10;
+  cursor: pointer;
+  &:focus {
+    outline: 0;
+  }
+  &::after, &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    width: 1px;
+    height: 100%;
+    background: black;
+  }
+  &::after {
+    transform: rotate(45deg);
+  }
+  &::before {
+    transform: rotate(-45deg);    
+  }
+`;
+
+
+const WheatherCard = (props) => {
+  const data = props.card.weekWeather.map((item, key) => (
+    {
+      name: `Day ${key}`,
+      temp: item.dayWeather.temp.day
+    }
+  ));
+  console.log(data);
+  return(
+    <Container>
+      <Card animation={props.animation}>
+        <Close onClick={props.onClose} />
+        <ResponsiveContainer width="100%" height="20%">
+          <LineChart data={data}>
+            <Line type="monotone" dataKey="temp" stroke="#8884d8" />
+            <Tooltip />
+            <XAxis dataKey="name" hideq/>
+          </LineChart>
+        </ResponsiveContainer>
+      </Card>    
+    </Container>
+  );
+};
 
 export default WheatherCard;

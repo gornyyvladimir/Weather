@@ -115,7 +115,7 @@ class WeatherContainer extends Component {
     console.log("Param", param);
     console.log("Event", e);    
     console.log("Click");
-    this.setState({card: {param}, animation: true});
+    this.setState({card: {...param}, animation: true});
   }
 
   handleClose = (e) => {
