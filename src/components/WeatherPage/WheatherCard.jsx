@@ -93,7 +93,7 @@ const WheatherCard = (props) => {
           <LineChart data={data}>
             <Line type="monotone" dataKey="temp" stroke="#8884d8" />
             <Tooltip />
-            <XAxis dataKey="name" hideq/>
+            <XAxis dataKey="name" hide/>
           </LineChart>
         </ResponsiveContainer>
       </Card>    
