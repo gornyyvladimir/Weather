@@ -89,6 +89,11 @@ const WheatherCard = (props) => {
     <Container>
       <Card animation={props.animation}>
         <Close onClick={props.onClose} />
+        <div>
+          <li>{props.card.weekWeather[props.card.key].dayWeather.temp.day}</li>
+          <li>{props.card.weekWeather[props.card.key].dayWeather.temp.min}</li>
+          <li>{props.card.weekWeather[props.card.key].dayWeather.temp.max}</li>          
+        </div>
         <ResponsiveContainer width="100%" height="20%">
           <LineChart data={data}>
             <Line type="monotone" dataKey="temp" stroke="#8884d8" />
