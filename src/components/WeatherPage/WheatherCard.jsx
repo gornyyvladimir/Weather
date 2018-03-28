@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
+import getDay from '../../helpers/date';
 
 const fadeInUp = keyframes`
   from {
@@ -99,9 +100,9 @@ const Item = styled.li`
 
 const WheatherCard = (props) => {
   //data for chart
-  const data = props.weekWeather.map((item, key) => (
+  const data = props.weekWeather.map((item) => (
     {
-      name: `Day ${key}`,
+      name: getDay(item.dt*1000),
       temp: item.temp.day
     }
   ));
