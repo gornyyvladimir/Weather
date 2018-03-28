@@ -19,7 +19,8 @@ class WeatherContainer extends Component {
       country: 'Ru',
       hasError: false,
       width: window.innerWidth,
-      height: window.innerHeight
+      height: window.innerHeight,
+      itemId: null
     };
 
     this.getWeatherAndImageDebounced = debounce(this.getWeatherAndImage, 1000);    
@@ -48,22 +49,7 @@ class WeatherContainer extends Component {
         this.setState({hasError: true});
         console.log("City not found");
       }
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
-      }
-      console.log(error.config);
+      console.log(error);
       return;
     }
     //image request
@@ -115,7 +101,7 @@ class WeatherContainer extends Component {
     console.log("Param", param);
     console.log("Event", e);    
     console.log("Click");
-    this.setState({card: {...param}, animation: true});
+    this.setState({itemId: param, animation: true});
   }
 
   handleClose = (e) => {
@@ -123,7 +109,7 @@ class WeatherContainer extends Component {
     // this.setState({card: null});   
     this.setState({animation: false});
     setTimeout(() => {
-      this.setState({card: null});
+      this.setState({itemId: null});
     }, 1000);     
   };
 

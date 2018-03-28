@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
+import { map } from 'lodash';
+
 
 const fadeInUp = keyframes`
   from {
@@ -38,10 +40,12 @@ const Card = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  padding: 40px;
   background: white;  
   animation-name: ${props => props.animation ? `${fadeInUp}` : `${fadeOutDown}`};
   animation-duration: 1s;
   animation-fill-mode: both;
+  box-sizing: border-box;
 `;
 
 const Close = styled.button`
@@ -76,9 +80,18 @@ const Close = styled.button`
   }
 `;
 
+const UnstyledList = styled.ul`
+  padding: 0;
+  margin: 0;
+  li {
+    list-style: none;
+  }
+`;
+
 
 const WheatherCard = (props) => {
-  const data = props.card.weekWeather.map((item, key) => (
+  //data for chart
+  const data = props.weekWeather.map((item, key) => (
     {
       name: `Day ${key}`,
       temp: item.dayWeather.temp.day
@@ -89,11 +102,11 @@ const WheatherCard = (props) => {
     <Container>
       <Card animation={props.animation}>
         <Close onClick={props.onClose} />
-        <div>
-          <li>{props.card.weekWeather[props.card.key].dayWeather.temp.day}</li>
-          <li>{props.card.weekWeather[props.card.key].dayWeather.temp.min}</li>
-          <li>{props.card.weekWeather[props.card.key].dayWeather.temp.max}</li>          
-        </div>
+        <UnstyledList>
+          <li>{props.weekWeather[props.itemId].dayWeather.temp.day}</li>
+          <li>{props.weekWeather[props.itemId].dayWeather.temp.min}</li>
+          <li>{props.weekWeather[props.itemId].dayWeather.temp.max}</li>          
+        </UnstyledList>
         <ResponsiveContainer width="100%" height="20%">
           <LineChart data={data}>
             <Line type="monotone" dataKey="temp" stroke="#8884d8" />

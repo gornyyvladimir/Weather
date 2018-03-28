@@ -36,7 +36,7 @@ const WheatherWeek = ({ weekWeather, onClick }) => (
   <UnstyledList>
   {
     weekWeather && weekWeather.map((item, key) => (
-      <Item key={key} onClick={onClick({weekWeather, key})}>
+      <Item key={key} onClick={onClick(key)}>
         <WheatherItem 
           day={getDay(item.dayWeather.dt*1000)} 
           temp={item.dayWeather.temp.day}

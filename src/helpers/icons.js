@@ -29,7 +29,8 @@ const weatherIcons = {
   "11d": thunderstorm,
   "13d": snowDay,
   "13n": snowNight,
-  "50d": mist
+  "50d": mist,
+  "50n": mist
 };
 
 export default weatherIcons;
