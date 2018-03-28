@@ -1,8 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
-import { map } from 'lodash';
-
 
 const fadeInUp = keyframes`
   from {
@@ -46,6 +44,8 @@ const Card = styled.div`
   animation-duration: 1s;
   animation-fill-mode: both;
   box-sizing: border-box;
+  /* overflow-y: scroll;
+  overflow-x: hidden;   */
 `;
 
 const Close = styled.button`
@@ -88,6 +88,14 @@ const UnstyledList = styled.ul`
   }
 `;
 
+const Item = styled.li`
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 18px;
+  color: #192a56;
+`;
+
 
 const WheatherCard = (props) => {
   //data for chart
@@ -98,14 +106,54 @@ const WheatherCard = (props) => {
     }
   ));
   console.log(data);
+
+  const dayWeather = props.weekWeather[props.itemId];
+
   return(
     <Container>
       <Card animation={props.animation}>
         <Close onClick={props.onClose} />
         <UnstyledList>
-          <li>{props.weekWeather[props.itemId].temp.day}</li>
-          <li>{props.weekWeather[props.itemId].temp.min}</li>
-          <li>{props.weekWeather[props.itemId].temp.max}</li>          
+          <Item>
+            <span>Night</span>
+            <span>{dayWeather.temp.night}° C</span>   
+          </Item>
+          <Item>
+            <span>Morning</span>
+            <span>{dayWeather.temp.morn}° C</span>   
+          </Item>
+          <Item>
+            <span>Day</span>
+            <span>{dayWeather.temp.day}° C</span>   
+          </Item>
+          <Item>
+            <span>Evening</span>
+            <span>{dayWeather.temp.eve}° C</span>   
+          </Item>
+          <Item>
+            <span>Min temperature</span>
+            <span>{dayWeather.temp.min}° C</span>   
+          </Item>
+          <Item>
+            <span>Max temperature</span>
+            <span>{dayWeather.temp.max}° C</span>   
+          </Item>       
+          <Item>
+            <span>Cloudiness</span>
+            <span>{dayWeather.clouds} %</span>         
+          </Item>
+          <Item>
+            <span>Humidity</span>
+            <span>{dayWeather.humidity} %</span>   
+          </Item>
+          <Item>
+            <span>Pressure</span>
+            <span>{dayWeather.pressure} hPa</span>   
+          </Item>
+          <Item>
+            <span>Wind speed</span>
+            <span>{dayWeather.speed} meter/sec</span>   
+          </Item>
         </UnstyledList>
         <ResponsiveContainer width="100%" height="20%">
           <LineChart data={data}>
