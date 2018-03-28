@@ -94,7 +94,7 @@ const WheatherCard = (props) => {
   const data = props.weekWeather.map((item, key) => (
     {
       name: `Day ${key}`,
-      temp: item.dayWeather.temp.day
+      temp: item.temp.day
     }
   ));
   console.log(data);
@@ -103,9 +103,9 @@ const WheatherCard = (props) => {
       <Card animation={props.animation}>
         <Close onClick={props.onClose} />
         <UnstyledList>
-          <li>{props.weekWeather[props.itemId].dayWeather.temp.day}</li>
-          <li>{props.weekWeather[props.itemId].dayWeather.temp.min}</li>
-          <li>{props.weekWeather[props.itemId].dayWeather.temp.max}</li>          
+          <li>{props.weekWeather[props.itemId].temp.day}</li>
+          <li>{props.weekWeather[props.itemId].temp.min}</li>
+          <li>{props.weekWeather[props.itemId].temp.max}</li>          
         </UnstyledList>
         <ResponsiveContainer width="100%" height="20%">
           <LineChart data={data}>

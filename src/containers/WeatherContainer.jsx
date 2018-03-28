@@ -35,7 +35,7 @@ class WeatherContainer extends Component {
     try {
       const weather = await fetchWeather(searchedCity);
       //var because wee need this in image request
-      var weekWeather = weather.data.list.map(dayWeather => ({ dayWeather }));
+      var weekWeather = weather.data.list.map(dayWeather => ({ ...dayWeather }));
       
       this.setState({
         weekWeather,
@@ -54,7 +54,7 @@ class WeatherContainer extends Component {
     }
     //image request
     try {
-      const image = await fetchImage(weekWeather[0].dayWeather.weather[0].main, w, h); 
+      const image = await fetchImage(weekWeather[0].weather[0].main, w, h); 
       this.setState(prevState => ({
         prevImage: prevState.image || null,
         image: image.data.urls.custom

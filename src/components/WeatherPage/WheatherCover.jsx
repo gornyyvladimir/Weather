@@ -54,7 +54,7 @@ const WheatherCover = props => (
         <Container>
           <CityInput onChange={props.onChange} value={props.inputValue} hasError={props.hasError}/>
           <City>{`${props.city}, ${props.country}`}</City>
-          <Temperature>{props.weekWeather ? Math.floor(props.weekWeather[0].dayWeather.temp.day) : null}°</Temperature>
+          <Temperature>{props.weekWeather ? Math.floor(props.weekWeather[0].temp.day) : null}°</Temperature>
         </Container>
       </Cover>
     )}

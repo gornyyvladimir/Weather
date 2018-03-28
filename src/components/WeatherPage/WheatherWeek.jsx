@@ -38,9 +38,9 @@ const WheatherWeek = ({ weekWeather, onClick }) => (
     weekWeather && weekWeather.map((item, key) => (
       <Item key={key} onClick={onClick(key)}>
         <WheatherItem 
-          day={getDay(item.dayWeather.dt*1000)} 
-          temp={item.dayWeather.temp.day}
-          weather={item.dayWeather.weather}
+          day={getDay(item.dt*1000)} 
+          temp={item.temp.day}
+          weather={item.weather}
         />
       </Item>
     ))
