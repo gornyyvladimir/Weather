@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { injectGlobal } from 'styled-components';
+import styled, { injectGlobal, ThemeProvider } from 'styled-components';
 import WeatherContainer from './containers/WeatherContainer'
 
 import 'normalize.css';
@@ -11,10 +11,17 @@ injectGlobal`
   }
 `;
 
+const theme = {
+  primary: '#192a56',
+  overlay: 'rgba(25, 42, 86, 0.5)'
+}
+
 class App extends Component {
   render() {
     return (
-      <WeatherContainer />
+      <ThemeProvider theme={theme}>
+        <WeatherContainer />
+      </ThemeProvider>
     );
   }
 }

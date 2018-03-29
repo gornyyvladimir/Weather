@@ -17,7 +17,7 @@ const Cover = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(30, 75, 115, 0.5), rgba(255, 255, 255, 0));
+    background: ${props => `linear-gradient(to bottom, ${props.theme.overlay}, rgba(255, 255, 255, 0))`};
     z-index: 2;
   }
 `;

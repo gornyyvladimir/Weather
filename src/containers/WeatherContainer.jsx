@@ -114,7 +114,8 @@ class WeatherContainer extends Component {
   };
 
   render() {
-    console.log(this.state);    
+    console.log("State", this.state);   
+    console.log("Props", this.props);         
     return (
       <Container>
         <WeatherPage {...this.state} onChange={this.handleChange} onClick={this.handleClick} onClose={this.handleClose}/>

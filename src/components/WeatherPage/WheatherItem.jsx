@@ -4,14 +4,14 @@ import weatherIcons from '../../helpers/icons';
 
 const Day = styled.span`
   font-size: 18px;
-  color: #192a56;
+  color: ${props => props.theme.primary};
   margin-right: auto;
 `;
 
 const Temperature = styled.span`
   text-align: right;
   font-size: 18px;
-  color: #192a56;
+  color: ${props => props.theme.primary};
   width: 60px;
 `;
 

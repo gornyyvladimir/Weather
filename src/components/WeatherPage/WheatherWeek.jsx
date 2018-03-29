@@ -28,7 +28,7 @@ const Item = styled.li`
     border: 0 solid transparent;
     border-bottom-width: 4px;
     border-top-width: 4px;
-    border-left: 4px solid #192a56;
+    border-left: 4px solid ${props => props.theme.primary};
   }
 `;
 

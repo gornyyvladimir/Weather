@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, withTheme } from 'styled-components';
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
 import getDay from '../../helpers/date';
 
@@ -94,7 +94,7 @@ const Item = styled.li`
   justify-content: space-between;
   padding: 10px 0;
   font-size: 18px;
-  color: #192a56;
+  color: ${props => props.theme.primary};
 `;
 
 
@@ -107,6 +107,7 @@ const WheatherCard = (props) => {
     }
   ));
   console.log(data);
+  console.log(props);
 
   const dayWeather = props.weekWeather[props.itemId];
 
@@ -158,7 +159,7 @@ const WheatherCard = (props) => {
         </UnstyledList>
         <ResponsiveContainer width="100%" height="20%">
           <LineChart data={data}>
-            <Line type="monotone" dataKey="temp" stroke="#8884d8" />
+            <Line type="monotone" dataKey="temp" stroke={props.theme.primary} />
             <Tooltip />
             <XAxis dataKey="name" hide/>
           </LineChart>
@@ -168,4 +169,4 @@ const WheatherCard = (props) => {
   );
 };
 
-export default WheatherCard;
+export default withTheme(WheatherCard);
