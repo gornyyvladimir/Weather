@@ -6,7 +6,7 @@ import { fetchWeather, fetchImage }  from "../services/api"
 import WeatherPage from '../components/WeatherPage'
 import defaulImage from './big.jpeg';
 
-//git test
+//git test 2
 const Container = styled.div`
   margin: 0 auto;
 `;
