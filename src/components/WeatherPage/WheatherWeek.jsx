@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import getDay from '../../helpers/date';
 import WheatherItem from './WheatherItem';
-import styled from 'styled-components';
 
 const UnstyledList = styled.ul`
   padding: 0;
@@ -34,18 +35,23 @@ const Item = styled.li`
 
 const WheatherWeek = ({ weekWeather, onClick }) => (
   <UnstyledList>
-  {
-    weekWeather && weekWeather.map((item, key) => (
-      <Item key={key} onClick={onClick(key)}>
-        <WheatherItem 
-          day={getDay(item.dt*1000)} 
-          temp={item.temp.day}
-          weather={item.weather}
-        />
-      </Item>
-    ))
-  }
+    {
+      weekWeather && weekWeather.map((item, key) => (
+        <Item key={key} onClick={onClick(key)}>
+          <WheatherItem
+            day={getDay(item.dt * 1000)}
+            temp={item.temp.day}
+            weather={item.weather}
+          />
+        </Item>
+      ))
+    }
   </UnstyledList>
 );
+
+WheatherWeek.propTypes = {
+  weekWeather: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 export default WheatherWeek;

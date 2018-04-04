@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import weatherIcons from '../../helpers/icons';
 
@@ -21,9 +22,15 @@ const Icon = styled.img`
 const WheatherItem = ({ day, temp, weather }) => (
   <Fragment>
     <Day>{day}</Day>
-    <Icon src={weatherIcons[weather[0].icon]} alt="snow"/>
+    <Icon src={weatherIcons[weather[0].icon]} alt="snow" />
     <Temperature>{Math.floor(temp)}° C</Temperature>
   </Fragment>
 );
+
+WheatherItem.propTypes = {
+  day: PropTypes.string.isRequired,
+  temp: PropTypes.number.isRequired,
+  weather: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default WheatherItem;

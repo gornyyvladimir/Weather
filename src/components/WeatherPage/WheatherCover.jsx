@@ -1,11 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ProgressiveImage from 'react-progressive-image';
 import styled from 'styled-components';
 import CityInput from './CityInput';
 
 const Cover = styled.div`
   position: relative;
-  background: ${props => props.url ? `url(${props.url})` : 'none'};
+  background: ${props => (props.url ? `url(${props.url})` : 'none')};
   background-position: center center;
   background-size: cover;
   transition: background ease-in-out 1s;
@@ -27,38 +28,59 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 60vh;      
+  min-height: 60vh;
   z-index: 3;
 `;
 
 const Temperature = styled.span`
   font-size: 82px;
-  font-weight: 700;  
+  font-weight: 700;
   color: white;
   text-shadow: 1px 1px 5px rgba(0,0,0,0.1);
-  margin-bottom: auto;   
+  margin-bottom: auto;
 `;
 
 const City = styled.span`
   font-size: 22px;
   font-weight: 300;
   color: white;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.1); 
-  margin-top: auto; 
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  margin-top: auto;
 `;
 
 const WheatherCover = props => (
-  <ProgressiveImage src={props.image && props.image} placeholder={props.prevImage && props.prevImage}>
+  <ProgressiveImage
+    src={props.image && props.image}
+    placeholder={props.prevImage && props.prevImage}
+  >
     {(src, loading) => (
-      <Cover url={src} loading>
+      <Cover url={src} loading={loading}>
         <Container>
-          <CityInput onChange={props.onChange} value={props.inputValue} hasError={props.hasError}/>
+          <CityInput onChange={props.onChange} value={props.inputValue} hasError={props.hasError} />
           <City>{`${props.city}, ${props.country}`}</City>
-          <Temperature>{props.weekWeather ? Math.floor(props.weekWeather[0].temp.day) : null}°</Temperature>
+          <Temperature>
+            {props.weekWeather ? Math.floor(props.weekWeather[0].temp.day) : null}°
+          </Temperature>
         </Container>
       </Cover>
     )}
   </ProgressiveImage>
 );
+
+WheatherCover.propTypes = {
+  image: PropTypes.string,
+  prevImage: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  inputValue: PropTypes.string.isRequired,
+  hasError: PropTypes.bool.isRequired,
+  city: PropTypes.string.isRequired,
+  country: PropTypes.string.isRequired,
+  weekWeather: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+WheatherCover.defaultProps = {
+  image: '',
+  prevImage: '',
+};
 
 export default WheatherCover;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled, { keyframes, withTheme } from 'styled-components';
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
 import getDay from '../../helpers/date';
@@ -40,8 +41,8 @@ const Card = styled.div`
   width: 100%;
   height: 100%;
   padding: 40px;
-  background: white;  
-  animation-name: ${props => props.animation ? `${fadeInUp}` : `${fadeOutDown}`};
+  background: white;
+  animation-name: ${props => (props.animation ? `${fadeInUp}` : `${fadeOutDown}`)};
   animation-duration: 1s;
   animation-fill-mode: both;
   box-sizing: border-box;
@@ -77,7 +78,7 @@ const Close = styled.button`
     transform: rotate(45deg);
   }
   &::before {
-    transform: rotate(-45deg);    
+    transform: rotate(-45deg);
   }
 `;
 
@@ -99,11 +100,11 @@ const Item = styled.li`
 
 
 const WheatherCard = (props) => {
-  //data for chart
-  const data = props.weekWeather.map((item) => (
+  // data for chart
+  const data = props.weekWeather.map(item => (
     {
-      name: getDay(item.dt*1000),
-      temp: item.temp.day
+      name: getDay(item.dt * 1000),
+      temp: item.temp.day,
     }
   ));
   console.log(data);
@@ -111,62 +112,72 @@ const WheatherCard = (props) => {
 
   const dayWeather = props.weekWeather[props.itemId];
 
-  return(
+  return (
     <Container>
       <Card animation={props.animation}>
         <Close onClick={props.onClose} />
         <UnstyledList>
           <Item>
             <span>Night</span>
-            <span>{dayWeather.temp.night}° C</span>   
+            <span>{dayWeather.temp.night}° C</span>
           </Item>
           <Item>
             <span>Morning</span>
-            <span>{dayWeather.temp.morn}° C</span>   
+            <span>{dayWeather.temp.morn}° C</span>
           </Item>
           <Item>
             <span>Day</span>
-            <span>{dayWeather.temp.day}° C</span>   
+            <span>{dayWeather.temp.day}° C</span>
           </Item>
           <Item>
             <span>Evening</span>
-            <span>{dayWeather.temp.eve}° C</span>   
+            <span>{dayWeather.temp.eve}° C</span>
           </Item>
           <Item>
             <span>Min temperature</span>
-            <span>{dayWeather.temp.min}° C</span>   
+            <span>{dayWeather.temp.min}° C</span>
           </Item>
           <Item>
             <span>Max temperature</span>
-            <span>{dayWeather.temp.max}° C</span>   
-          </Item>       
+            <span>{dayWeather.temp.max}° C</span>
+          </Item>
           <Item>
             <span>Cloudiness</span>
-            <span>{dayWeather.clouds} %</span>         
+            <span>{dayWeather.clouds} %</span>
           </Item>
           <Item>
             <span>Humidity</span>
-            <span>{dayWeather.humidity} %</span>   
+            <span>{dayWeather.humidity} %</span>
           </Item>
           <Item>
             <span>Pressure</span>
-            <span>{dayWeather.pressure} hPa</span>   
+            <span>{dayWeather.pressure} hPa</span>
           </Item>
           <Item>
             <span>Wind speed</span>
-            <span>{dayWeather.speed} meter/sec</span>   
+            <span>{dayWeather.speed} meter/sec</span>
           </Item>
         </UnstyledList>
         <ResponsiveContainer width="100%" height="20%">
           <LineChart data={data}>
             <Line type="monotone" dataKey="temp" stroke={props.theme.primary} />
             <Tooltip />
-            <XAxis dataKey="name" hide/>
+            <XAxis dataKey="name" hide />
           </LineChart>
         </ResponsiveContainer>
-      </Card>    
+      </Card>
     </Container>
   );
+};
+
+WheatherCard.propTypes = {
+  weekWeather: PropTypes.arrayOf(PropTypes.object).isRequired,
+  itemId: PropTypes.number.isRequired,
+  theme: PropTypes.shape({
+    primary: PropTypes.string,
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+  animation: PropTypes.bool.isRequired,
 };
 
 export default withTheme(WheatherCard);

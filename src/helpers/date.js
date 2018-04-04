@@ -6,7 +6,7 @@ const DAYS = {
   nextWeek: 'dddd',
   lastDay: '[Yesterday]',
   lastWeek: '[Last] dddd',
-  sameElse: 'DD/MM/YYYY'
+  sameElse: 'DD/MM/YYYY',
 };
 
 const getDay = date => moment(new Date(date)).calendar(null, DAYS);
