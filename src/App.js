@@ -16,7 +16,7 @@ const theme = {
   overlay: 'rgba(25, 42, 86, 0.5)',
 };
 
-const App = () => (
+const App = props => (
   <ThemeProvider theme={theme}>
     <WeatherContainer />
   </ThemeProvider>
