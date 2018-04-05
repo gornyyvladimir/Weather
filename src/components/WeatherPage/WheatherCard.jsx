@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes, withTheme } from 'styled-components';
+import breakpoint from 'styled-components-breakpoint';
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
 import getDay from '../../helpers/date';
 
@@ -34,6 +35,10 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   z-index: 3;
+  ${breakpoint('tablet')`
+    position: absolute;
+    height: 100%;
+  `}
 `;
 
 const Card = styled.div`
