@@ -1,14 +1,54 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { debounce } from 'lodash';
 import styled from 'styled-components';
-// import breakpoint from 'styled-components-breakpoint';
+import breakpoint from 'styled-components-breakpoint';
 import { fetchWeather, fetchImage }  from "../services/api"
 import WeatherPage from '../components/WeatherPage'
 import defaulImage from './big.jpeg';
 
 //git test 2
+const Wrapper = styled.div`
+  ${breakpoint('tablet')`
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  `}
+`;
+
 const Container = styled.div`
-  margin: 0 auto;
+  ${breakpoint('tablet')`
+    padding-left: 80px;
+    padding-right: 80px;
+    width: 100%;
+    max-width: 1024px;
+    box-sizing: border-box;
+  `}
+`;
+
+const Background = styled.div`
+  ${breakpoint('tablet')`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(${props => props.image ? props.image : 'none'});
+    background-size: cover;
+    filter: blur(40px);
+    transform: scale(1.1);
+    z-index: -1;
+    `}
+`;
+
+const Shadow = styled.div`
+  ${breakpoint('tablet')`
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.3);
+  `}
 `;
 
 class WeatherContainer extends Component {
@@ -24,7 +64,7 @@ class WeatherContainer extends Component {
       itemId: null
     };
 
-    this.getWeatherAndImageDebounced = debounce(this.getWeatherAndImage, 1000);    
+    this.getWeatherAndImageDebounced = debounce(this.getWeatherAndImage, 1000);
   }
 
   componentDidMount() {
@@ -37,7 +77,7 @@ class WeatherContainer extends Component {
       const weather = await fetchWeather(searchedCity);
       //var because wee need this in image request
       var weekWeather = weather.data.list.map(dayWeather => ({ ...dayWeather }));
-      
+
       this.setState({
         weekWeather,
         city: weather.data.city.name,
@@ -55,7 +95,7 @@ class WeatherContainer extends Component {
     }
     //image request
     try {
-      const image = await fetchImage(weekWeather[0].weather[0].main, w, h); 
+      const image = await fetchImage(weekWeather[0].weather[0].main, w, h);
       this.setState(prevState => ({
         prevImage: prevState.image || null,
         image: image.data.urls.custom
@@ -89,7 +129,7 @@ class WeatherContainer extends Component {
     this.setState({
       inputValue: e.target.value
     });
-    
+
     //dont make request
     if(!e.target.value.length) {
       this.getWeatherAndImageDebounced.cancel();
@@ -98,29 +138,34 @@ class WeatherContainer extends Component {
     this.getWeatherAndImageDebounced(e.target.value, this.state.width, this.state.height);
   }
 
-  handleClick = (param) => (e) => { 
+  handleClick = (param) => (e) => {
     console.log("Param", param);
-    console.log("Event", e);    
+    console.log("Event", e);
     console.log("Click");
     this.setState({itemId: param, animation: true});
   }
 
   handleClose = (e) => {
     console.log("Here");
-    // this.setState({card: null});   
+    // this.setState({card: null});
     this.setState({animation: false});
     setTimeout(() => {
       this.setState({itemId: null});
-    }, 1000);     
+    }, 1000);
   };
 
   render() {
-    console.log("State", this.state);   
-    console.log("Props", this.props);         
+    console.log("State", this.state);
+    console.log("Props", this.props);
     return (
-      <Container>
-        <WeatherPage {...this.state} onChange={this.handleChange} onClick={this.handleClick} onClose={this.handleClose}/>
-      </Container>
+      <Wrapper>
+        <Container>
+          <Shadow>
+            <WeatherPage {...this.state} onChange={this.handleChange} onClick={this.handleClick} onClose={this.handleClose}/>
+          </Shadow>
+        </Container>
+        <Background image={this.state.image}/>
+      </Wrapper>
     );
   }
 }

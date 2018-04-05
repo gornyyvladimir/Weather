@@ -1,12 +1,16 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import breakpoint from 'styled-components-breakpoint';
 import weatherIcons from '../../helpers/icons';
 
 const Day = styled.span`
   font-size: 18px;
   color: ${props => props.theme.primary};
   margin-right: auto;
+  ${breakpoint('tablet')`
+    margin: 0;
+  `}
 `;
 
 const Temperature = styled.span`
@@ -14,6 +18,9 @@ const Temperature = styled.span`
   font-size: 18px;
   color: ${props => props.theme.primary};
   width: 60px;
+  ${breakpoint('tablet')`
+    width: auto;
+  `}
 `;
 
 const Icon = styled.img`

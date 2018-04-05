@@ -1,15 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import breakpoint from 'styled-components-breakpoint';
 import getDay from '../../helpers/date';
 import WheatherItem from './WheatherItem';
 
 const UnstyledList = styled.ul`
   padding: 0;
   margin: 0;
+  background-color: white;
   li {
     list-style: none;
   }
+  ${breakpoint('tablet')`
+    display: flex;
+    justify-content: space-around;
+  `}
 `;
 
 const Item = styled.li`
@@ -30,7 +36,18 @@ const Item = styled.li`
     border-bottom-width: 4px;
     border-top-width: 4px;
     border-left: 4px solid ${props => props.theme.primary};
+    ${breakpoint('tablet')`
+      display: none;
+    `}
   }
+
+  ${breakpoint('tablet')`
+    padding: 0;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    flex-direction: column;
+  `}
+
 `;
 
 const WheatherWeek = ({ weekWeather, onClick }) => (
