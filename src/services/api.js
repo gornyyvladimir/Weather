@@ -9,18 +9,19 @@ const UNSPLASH_ACCESS_KEY = '26b7f4ae5d1b87f63fa766a4bd26a22f894a3fb1f034c66058b
 const UNSPLASH_API_URL = 'https://api.unsplash.com';
 
 const fetchWeather = async (city) => {
-    return await axios.get(`${WEATHER_API_URL}/forecast/daily`, {
-      params: {
-        q: city,
-        units: 'metric',
-        cnt: 7,
-        appid: WEATHER_API_KEY,
-      }
-    });
-}
+  const response = await axios.get(`${WEATHER_API_URL}/forecast/daily`, {
+    params: {
+      q: city,
+      units: 'metric',
+      cnt: 7,
+      appid: WEATHER_API_KEY,
+    },
+  });
+  return response;
+};
 
 const fetchImage = async (query, w = null, h = null, orientation = null, featured = null) => {
-  return await axios.get(`${UNSPLASH_API_URL}/photos/random`, {
+  const response = await axios.get(`${UNSPLASH_API_URL}/photos/random`, {
     params: {
       query,
       w,
@@ -29,10 +30,10 @@ const fetchImage = async (query, w = null, h = null, orientation = null, feature
       featured,
     },
     headers: {
-      Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`
-    }
+      Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`,
+    },
   });
-
-}
+  return response;
+};
 
 export { fetchWeather, fetchImage };
