@@ -25,7 +25,9 @@ const Wrapper = styled.div`
 `;
 
 const Label = styled.label`
-  display: none;
+  display: block;
+  height: 0;
+  opacity: 0;
 `;
 
 // const Tooltip = styled.span`
