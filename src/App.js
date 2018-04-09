@@ -1,7 +1,7 @@
 import React from 'react';
 import { injectGlobal, ThemeProvider } from 'styled-components';
 import 'normalize.css';
-import WeatherContainer from './containers/WeatherContainer'
+import WeatherContainer from './containers/WeatherContainer';
 
 
 injectGlobal`

@@ -71,8 +71,7 @@ class WeatherContainer extends Component {
         country: weather.data.city.country,
         hasError: false,
       });
-    }
-    catch (error) {
+    } catch (error) {
       if (error.response.status === 404) {
         this.setState({ hasError: true });
         console.log('City not found');
@@ -87,12 +86,11 @@ class WeatherContainer extends Component {
         prevImage: prevState.image || null,
         image: image.data.urls.custom,
       }));
-    }
-    catch (error) {
+    } catch (error) {
       this.setState({
         image: defaulImage,
       });
-      console.log("Image not work");
+      console.log('Image not work');
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
@@ -129,8 +127,7 @@ class WeatherContainer extends Component {
     this.setState({ itemId: param, animation: true })
   );
 
-  handleClose = (e) => {
-    console.log("Here");
+  handleClose = () => {
     // this.setState({card: null});
     this.setState({ animation: false });
     setTimeout(() => {
@@ -139,16 +136,19 @@ class WeatherContainer extends Component {
   };
 
   render() {
-    console.log("State", this.state);
-    console.log("Props", this.props);
     return (
       <Wrapper>
         <Container>
           <Shadow>
-            <WeatherPage {...this.state} onChange={this.handleChange} onClick={this.handleClick} onClose={this.handleClose} />
+            <WeatherPage
+              {...this.state}
+              onChange={this.handleChange}
+              onClick={this.handleClick}
+              onClose={this.handleClose}
+            />
           </Shadow>
         </Container>
-        <ProgressiveBackground image={this.state.image} prevImage={this.state.prevImage}/>
+        <ProgressiveBackground image={this.state.image} prevImage={this.state.prevImage} />
       </Wrapper>
     );
   }
