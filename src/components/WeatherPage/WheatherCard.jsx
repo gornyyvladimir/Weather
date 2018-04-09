@@ -51,8 +51,9 @@ const Card = styled.div`
   animation-duration: 1s;
   animation-fill-mode: both;
   box-sizing: border-box;
-  /* overflow-y: scroll;
-  overflow-x: hidden;   */
+  ${breakpoint('tablet')`
+    border-radius: 5px;
+  `}
 `;
 
 const Close = styled.button`

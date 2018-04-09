@@ -15,6 +15,8 @@ const UnstyledList = styled.ul`
   ${breakpoint('tablet')`
     display: flex;
     justify-content: space-around;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   `}
 `;
 

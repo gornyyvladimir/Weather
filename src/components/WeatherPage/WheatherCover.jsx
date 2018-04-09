@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProgressiveImage from 'react-progressive-image';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import breakpoint from 'styled-components-breakpoint';
 import CityInput from './CityInput';
+
+const borderRadiusMixin = css`
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+`;
 
 const Cover = styled.div`
   position: relative;
@@ -20,7 +26,13 @@ const Cover = styled.div`
     height: 100%;
     background: ${props => `linear-gradient(to bottom, ${props.theme.overlay}, rgba(255, 255, 255, 0))`};
     z-index: 2;
+    ${breakpoint('tablet')`
+      ${borderRadiusMixin}
+    `}
   }
+  ${breakpoint('tablet')`
+    ${borderRadiusMixin}
+  `}
 `;
 
 const Container = styled.div`
@@ -30,6 +42,9 @@ const Container = styled.div`
   align-items: center;
   min-height: 60vh;
   z-index: 3;
+  ${breakpoint('tablet')`
+    ${borderRadiusMixin}
+  `}
 `;
 
 const Temperature = styled.span`
