@@ -148,7 +148,10 @@ class WeatherContainer extends Component {
             />
           </Shadow>
         </Container>
-        <ProgressiveBackground image={this.state.image} prevImage={this.state.prevImage} />
+        {
+          this.state.image &&
+          <ProgressiveBackground image={this.state.image} prevImage={this.state.prevImage} />
+        }
       </Wrapper>
     );
   }

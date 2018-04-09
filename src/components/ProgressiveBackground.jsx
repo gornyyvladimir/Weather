@@ -23,8 +23,8 @@ const Background = styled.div`
 
 const ProgressiveBackground = props => (
   <ProgressiveImage
-    src={props.image && props.image}
-    placeholder={props.prevImage && props.prevImage}
+    src={props.image}
+    placeholder={props.prevImage}
   >
     {src => <Background url={src} />}
   </ProgressiveImage>
