@@ -6,7 +6,6 @@ import WeatherContainer from './containers/WeatherContainer';
 
 injectGlobal`
   body{
-    @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
     font-family: 'Roboto', sans-serif;
   }
 `;

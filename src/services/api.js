@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // openweathermap
 const WEATHER_API_KEY = 'd94bcd435b62a031771c35633f9f310a';
-const WEATHER_API_URL = 'http://api.openweathermap.org/data/2.5';
+const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5';
 
 // unsplash
 const UNSPLASH_ACCESS_KEY = '26b7f4ae5d1b87f63fa766a4bd26a22f894a3fb1f034c66058b802bfa78bab0f';
