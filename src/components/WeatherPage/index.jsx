@@ -12,8 +12,7 @@ const WeatherPage = props => (
       <WheatherWeek weekWeather={props.weekWeather} onClick={props.onClick} />
     }
     {
-      props.itemId &&
-      props.itemId >= 0 &&
+      (props.itemId != null) &&
       <WheatherCard {...props} />
     }
   </Fragment>
