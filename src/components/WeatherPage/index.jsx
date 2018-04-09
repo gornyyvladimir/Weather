@@ -7,19 +7,27 @@ import WheatherCard from './WheatherCard';
 const WeatherPage = props => (
   <Fragment>
     <WheatherCover {...props} />
-    {props.weekWeather && <WheatherWeek weekWeather={props.weekWeather} onClick={props.onClick} />}
-    {props.itemId != null && <WheatherCard {...props} />}
+    {
+      props.weekWeather &&
+      <WheatherWeek weekWeather={props.weekWeather} onClick={props.onClick} />
+    }
+    {
+      props.itemId &&
+      props.itemId >= 0 &&
+      <WheatherCard {...props} />
+    }
   </Fragment>
 );
 
-WeatherPage.propTypes = {
-  weekWeather: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onClick: PropTypes.func.isRequired,
-  itemId: PropTypes.number,
+WeatherPage.defaultProps = {
+  weekWeather: null,
+  itemId: null,
 };
 
-WeatherPage.defaultProps = {
-  itemId: null,
+WeatherPage.propTypes = {
+  weekWeather: PropTypes.arrayOf(PropTypes.object),
+  onClick: PropTypes.func.isRequired,
+  itemId: PropTypes.number,
 };
 
 export default WeatherPage;

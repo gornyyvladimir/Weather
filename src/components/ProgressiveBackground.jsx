@@ -30,9 +30,13 @@ const ProgressiveBackground = props => (
   </ProgressiveImage>
 );
 
+ProgressiveBackground.defaultProps = {
+  prevImage: null,
+};
+
 ProgressiveBackground.propTypes = {
   image: PropTypes.string.isRequired,
-  prevImage: PropTypes.string.isRequired,
+  prevImage: PropTypes.string,
 };
 
 export default ProgressiveBackground;

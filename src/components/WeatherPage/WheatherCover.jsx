@@ -75,12 +75,13 @@ WheatherCover.propTypes = {
   hasError: PropTypes.bool.isRequired,
   city: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
-  weekWeather: PropTypes.arrayOf(PropTypes.object).isRequired,
+  weekWeather: PropTypes.arrayOf(PropTypes.object),
 };
 
 WheatherCover.defaultProps = {
   image: '',
   prevImage: '',
+  weekWeather: null,
 };
 
 export default WheatherCover;
