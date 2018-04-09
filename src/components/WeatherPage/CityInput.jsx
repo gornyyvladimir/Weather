@@ -24,6 +24,10 @@ const Wrapper = styled.div`
   align-self: stretch;
 `;
 
+const Label = styled.label`
+  display: none;
+`;
+
 // const Tooltip = styled.span`
 //   position: absolute;
 //   top: 0;
@@ -37,7 +41,8 @@ const Wrapper = styled.div`
 
 const CityInput = props => (
   <Wrapper>
-    <Input onChange={props.onChange} type="text" value={props.value} hasError={props.hasError} />
+    <Label htmlFor="city">City</Label>
+    <Input onChange={props.onChange} type="text" value={props.value} hasError={props.hasError} id="city" />
   </Wrapper>
 );
 
