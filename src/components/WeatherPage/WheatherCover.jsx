@@ -37,7 +37,6 @@ const Temperature = styled.span`
   font-weight: 700;
   color: white;
   text-shadow: 1px 1px 5px rgba(0,0,0,0.1);
-  margin-bottom: auto;
 `;
 
 const City = styled.span`
@@ -46,6 +45,14 @@ const City = styled.span`
   color: white;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
   margin-top: auto;
+`;
+
+const Weather = styled.span`
+  font-size: 22px;
+  font-weight: 300;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: auto;
 `;
 
 const WheatherCover = props => (
@@ -61,6 +68,9 @@ const WheatherCover = props => (
           <Temperature>
             {props.weekWeather ? Math.floor(props.weekWeather[0].temp.day) : null}°
           </Temperature>
+          <Weather>
+            {props.weekWeather && props.weekWeather[0].weather[0].main}
+          </Weather>
         </Container>
       </Cover>
     )}
