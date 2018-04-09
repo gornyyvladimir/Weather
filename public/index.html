@@ -21,12 +21,51 @@
     -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
     <title>React App</title>
+    <style>
+      .picture {
+        min-height: 60vh;
+        background: #ecf0f1;
+        background-image: url(%PUBLIC_URL%/picture.svg);
+        background-size: 50%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        border-radius: 5px;
+      }
+      .list {
+        padding: 0;
+        margin: 0;
+      }
+      .list li {
+        list-style: none;
+        text-align: center;
+        padding: 20px;
+        margin: 10px 0;
+        background: #ecf0f1;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        border-radius: 5px;
+      }
+    </style>
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="content">
+        <div class="picture">
+        </div>
+        <ul class="list">
+          <li>Today</li>
+          <li>Tomorrow</li>
+          <li>Wednesday</li>
+          <li>Thursday</li>
+          <li>Friday</li>
+          <li>Saturday</li>
+          <li>Sunday</li>
+        </ul>
+      </div>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
