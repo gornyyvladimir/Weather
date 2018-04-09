@@ -5,7 +5,7 @@ import breakpoint from 'styled-components-breakpoint';
 import { fetchWeather, fetchImage } from '../services/api';
 import WeatherPage from '../components/WeatherPage';
 import ProgressiveBackground from '../components/ProgressiveBackground';
-import defaulImage from './big.jpeg';
+import defaulImage from './default.jpeg';
 
 const Wrapper = styled.div`
   ${breakpoint('tablet')`
