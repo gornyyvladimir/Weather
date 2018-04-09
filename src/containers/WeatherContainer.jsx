@@ -2,8 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { debounce } from 'lodash';
 import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
-import { fetchWeather, fetchImage }  from "../services/api"
-import WeatherPage from '../components/WeatherPage'
+import ProgressiveImage from 'react-progressive-image';
+import { fetchWeather, fetchImage }  from "../services/api";
+import WeatherPage from '../components/WeatherPage';
+import ProgressiveBackground from '../components/ProgressiveBackground';
 import defaulImage from './big.jpeg';
 
 //git test 2
@@ -27,21 +29,6 @@ const Container = styled.div`
     max-width: 1024px;
     box-sizing: border-box;
   `}
-`;
-
-const Background = styled.div`
-  ${breakpoint('tablet')`
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: ${props => props.image ? `url(${props.image})` : 'none'};
-    background-size: cover;
-    filter: blur(40px);
-    transform: scale(1.1);
-    z-index: -1;
-    `}
 `;
 
 const Shadow = styled.div`
@@ -165,7 +152,7 @@ class WeatherContainer extends Component {
             <WeatherPage {...this.state} onChange={this.handleChange} onClick={this.handleClick} onClose={this.handleClose}/>
           </Shadow>
         </Container>
-        <Background image={this.state.image}/>
+        <ProgressiveBackground image={this.state.image} prevImage={this.state.prevImage}/>
       </Wrapper>
     );
   }
