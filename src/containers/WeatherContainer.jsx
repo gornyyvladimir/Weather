@@ -1,14 +1,12 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { debounce } from 'lodash';
 import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
-import ProgressiveImage from 'react-progressive-image';
-import { fetchWeather, fetchImage }  from "../services/api";
+import { fetchWeather, fetchImage } from '../services/api';
 import WeatherPage from '../components/WeatherPage';
 import ProgressiveBackground from '../components/ProgressiveBackground';
 import defaulImage from './big.jpeg';
 
-//git test 2
 const Wrapper = styled.div`
   ${breakpoint('tablet')`
     display: flex;
@@ -49,7 +47,7 @@ class WeatherContainer extends Component {
       hasError: false,
       width: window.innerWidth,
       height: window.innerHeight,
-      itemId: null
+      itemId: null,
     };
 
     this.getWeatherAndImageDebounced = debounce(this.getWeatherAndImage, 1000);
@@ -60,38 +58,39 @@ class WeatherContainer extends Component {
   }
 
   async getWeatherAndImage(searchedCity = this.state.city, w = null, h = null) {
-    //weather request
+    // weather request
+    let weekWeather;
     try {
       const weather = await fetchWeather(searchedCity);
-      //var because wee need this in image request
-      var weekWeather = weather.data.list.map(dayWeather => ({ ...dayWeather }));
+      // var because wee need this in image request
+      weekWeather = weather.data.list.map(dayWeather => ({ ...dayWeather }));
 
       this.setState({
         weekWeather,
         city: weather.data.city.name,
         country: weather.data.city.country,
-        hasError: false
+        hasError: false,
       });
     }
-    catch(error) {
-      if(error.response.status === 404) {
-        this.setState({hasError: true});
-        console.log("City not found");
+    catch (error) {
+      if (error.response.status === 404) {
+        this.setState({ hasError: true });
+        console.log('City not found');
       }
       console.log(error);
       return;
     }
-    //image request
+    // image request
     try {
       const image = await fetchImage(weekWeather[0].weather[0].main, w, h);
       this.setState(prevState => ({
         prevImage: prevState.image || null,
-        image: image.data.urls.custom
+        image: image.data.urls.custom,
       }));
     }
-    catch(error) {
+    catch (error) {
       this.setState({
-        image: defaulImage
+        image: defaulImage,
       });
       console.log("Image not work");
       if (error.response) {
@@ -113,32 +112,29 @@ class WeatherContainer extends Component {
     }
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
-      inputValue: e.target.value
+      inputValue: e.target.value,
     });
 
-    //dont make request
-    if(!e.target.value.length) {
+    // dont make request
+    if (!e.target.value.length) {
       this.getWeatherAndImageDebounced.cancel();
       return;
     }
     this.getWeatherAndImageDebounced(e.target.value, this.state.width, this.state.height);
   }
 
-  handleClick = (param) => (e) => {
-    console.log("Param", param);
-    console.log("Event", e);
-    console.log("Click");
-    this.setState({itemId: param, animation: true});
-  }
+  handleClick = param => () => (
+    this.setState({ itemId: param, animation: true })
+  );
 
   handleClose = (e) => {
     console.log("Here");
     // this.setState({card: null});
-    this.setState({animation: false});
+    this.setState({ animation: false });
     setTimeout(() => {
-      this.setState({itemId: null});
+      this.setState({ itemId: null });
     }, 1000);
   };
 
@@ -149,7 +145,7 @@ class WeatherContainer extends Component {
       <Wrapper>
         <Container>
           <Shadow>
-            <WeatherPage {...this.state} onChange={this.handleChange} onClick={this.handleClick} onClose={this.handleClose}/>
+            <WeatherPage {...this.state} onChange={this.handleChange} onClick={this.handleClick} onClose={this.handleClose} />
           </Shadow>
         </Container>
         <ProgressiveBackground image={this.state.image} prevImage={this.state.prevImage}/>
