@@ -47,6 +47,7 @@ class WeatherContainer extends Component {
       hasError: false,
       width: window.innerWidth,
       height: window.innerHeight,
+      image: defaulImage,
       itemId: null,
     };
 
