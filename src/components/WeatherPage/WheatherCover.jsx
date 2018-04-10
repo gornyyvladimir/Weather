@@ -5,6 +5,9 @@ import styled, { css } from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
 import CityInput from './CityInput';
 
+// transparent image for fade effect
+const transparent = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+
 const borderRadiusMixin = css`
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -12,7 +15,8 @@ const borderRadiusMixin = css`
 
 const Cover = styled.div`
   position: relative;
-  background: ${props => (props.url ? `url(${props.url})` : 'none')};
+  background: transparent;
+  background-image: ${props => (props.url ? `url(${props.url})` : `url(${transparent})`)};
   background-position: center center;
   background-size: cover;
   transition: background ease-in-out 1s;
