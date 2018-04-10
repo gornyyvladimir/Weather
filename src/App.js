@@ -2,39 +2,33 @@ import React from 'react';
 import { injectGlobal, ThemeProvider } from 'styled-components';
 // import 'normalize.css';
 import WeatherContainer from './containers/WeatherContainer';
+// import RobotoRegular from './static/fonts/RobotoRegular/RobotoRegular.woff';
+// import RobotoLight from './static/fonts/RobotoLight/RobotoLight.woff';
+// import RobotoBold from './static/fonts/RobotoBold/RobotoBold.woff';
 
 
 injectGlobal`
-  @font-face {
+  /* @font-face {
     font-family: "RobotoRegular";
-    src: url("%PUBLIC_URL%/fonts/RobotoRegular/RobotoRegular.eot");
-    src: url("%PUBLIC_URL%/fonts/RobotoRegular/RobotoRegular.eot?#iefix")format("embedded-opentype"),
-    url("%PUBLIC_URL%/fonts/RobotoRegular/RobotoRegular.woff") format("woff"),
-    url("%PUBLIC_URL%/fonts/RobotoRegular/RobotoRegular.ttf") format("truetype");
+    src: url(${RobotoRegular});
     font-style: normal;
     font-weight: normal;
   }
 
   @font-face {
     font-family: "RobotoLight";
-    src: url("%PUBLIC_URL%/fonts/RobotoLight/RobotoLight.eot");
-    src: url("%PUBLIC_URL%/fonts/RobotoLight/RobotoLight.eot?#iefix")format("embedded-opentype"),
-    url("%PUBLIC_URL%/fonts/RobotoLight/RobotoLight.woff") format("woff"),
-    url("%PUBLIC_URL%/fonts/RobotoLight/RobotoLight.ttf") format("truetype");
+    src: url(${RobotoLight});
     font-style: normal;
     font-weight: normal;
   }
 
   @font-face {
     font-family: "RobotoBold";
-    src: url("%PUBLIC_URL%/fonts/RobotoBold/RobotoBold.eot");
-    src: url("%PUBLIC_URL%/fonts/RobotoBold/RobotoBold.eot?#iefix")format("embedded-opentype"),
-    url("%PUBLIC_URL%/fonts/RobotoBold/RobotoBold.woff") format("woff"),
-    url("%PUBLIC_URL%/fonts/RobotoBold/RobotoBold.ttf") format("truetype");
+    src: url(${RobotoBold});
     font-style: normal;
     font-weight: normal;
-  }
-
+  } */
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
   body{
     font-family: 'Roboto', sans-serif;
     margin: 0;
