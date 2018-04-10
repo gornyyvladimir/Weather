@@ -15,8 +15,7 @@ const borderRadiusMixin = css`
 
 const Cover = styled.div`
   position: relative;
-  background: transparent;
-  background-image: ${props => (props.url ? `url(${props.url})` : `url(${transparent})`)};
+  background: ${props => (props.url ? `url(${props.url})` : `url(${transparent})`)};
   background-position: center center;
   background-size: cover;
   transition: background ease-in-out 1s;
