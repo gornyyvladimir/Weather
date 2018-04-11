@@ -46,8 +46,8 @@ class WeatherContainer extends Component {
       city: 'Kazan',
       country: 'Ru',
       hasError: false,
-      width: window.innerWidth,
-      height: window.innerHeight,
+      width: 900,
+      height: 600,
       itemId: null,
     };
 
