@@ -3,6 +3,7 @@ import { debounce } from 'lodash';
 import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
 import { fetchWeather, fetchImage } from '../services/api';
+import weatherHelper from '../helpers/weather';
 import WeatherPage from '../components/WeatherPage';
 import ProgressiveBackground from '../components/ProgressiveBackground';
 import defaulImage from './default.jpeg';
@@ -81,7 +82,7 @@ class WeatherContainer extends Component {
     }
     // image request
     try {
-      const image = await fetchImage(weekWeather[0].weather[0].main, w, h);
+      const image = await fetchImage(weatherHelper(weekWeather[0].weather[0].main), w, h);
       this.setState(prevState => ({
         prevImage: prevState.image || null,
         image: image.data.urls.custom,
