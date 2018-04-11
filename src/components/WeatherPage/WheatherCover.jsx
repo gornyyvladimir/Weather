@@ -6,7 +6,7 @@ import breakpoint from 'styled-components-breakpoint';
 import CityInput from './CityInput';
 
 // transparent image for fade effect
-const transparent = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+const transparent = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48L3N2Zz4=';
 
 const borderRadiusMixin = css`
   border-top-left-radius: 5px;
