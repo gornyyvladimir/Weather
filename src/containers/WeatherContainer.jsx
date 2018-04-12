@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { debounce } from 'lodash';
 import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
@@ -7,6 +7,16 @@ import weatherHelper from '../helpers/weather';
 import WeatherPage from '../components/WeatherPage';
 import ProgressiveBackground from '../components/ProgressiveBackground';
 import defaulImage from './default.jpeg';
+import defaultWeather from '../helpers/defaultWeather';
+
+const ErrorMessage = styled.p`
+  background: #e84118;
+  color: white;
+  font-weight: 300;
+  margin: 0;
+  padding: 20px 30px;
+  text-align: center;
+`;
 
 const Wrapper = styled.div`
   ${breakpoint('tablet')`
@@ -42,9 +52,11 @@ class WeatherContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputValue: 'Kazan',
-      city: 'Kazan',
-      country: 'Ru',
+      inputValue: '',
+      city: 'City',
+      country: 'Country',
+      weekWeather: defaultWeather,
+      errorMessage: '',
       hasError: false,
       width: 900,
       height: 600,
@@ -55,10 +67,10 @@ class WeatherContainer extends Component {
   }
 
   componentDidMount() {
-    this.getWeatherAndImage(this.state.city, this.state.width, this.state.height);
+    this.getWeatherAndImage('Kazan', this.state.width, this.state.height);
   }
 
-  async getWeatherAndImage(searchedCity = this.state.city, w = null, h = null) {
+  async getWeatherAndImage(searchedCity, w = null, h = null) {
     // weather request
     let weekWeather;
     try {
@@ -71,23 +83,34 @@ class WeatherContainer extends Component {
         city: weather.data.city.name,
         country: weather.data.city.country,
         hasError: false,
+        errorMessage: '',
       });
     } catch (error) {
       if (error.response && error.response.status === 404) {
         this.setState({ hasError: true });
+        return;
       }
-      return;
+      this.setState({
+        image: defaulImage,
+        errorMessage: error.message,
+      });
     }
     // image request
     try {
+      // if weather request failed
+      if (!weekWeather) {
+        throw new Error(`Weather request error: ${this.state.errorMessage}`);
+      }
       const image = await fetchImage(weatherHelper(weekWeather[0].weather[0].main), w, h);
       this.setState(prevState => ({
         prevImage: prevState.image || null,
         image: image.data.urls.custom,
+        errorMessage: '',
       }));
     } catch (error) {
       this.setState({
         image: defaulImage,
+        errorMessage: error.message,
       });
     }
   }
@@ -119,22 +142,28 @@ class WeatherContainer extends Component {
 
   render() {
     return (
-      <Wrapper>
-        <Container>
-          <Shadow>
-            <WeatherPage
-              {...this.state}
-              onChange={this.handleChange}
-              onClick={this.handleClick}
-              onClose={this.handleClose}
-            />
-          </Shadow>
-        </Container>
+      <Fragment>
         {
-          this.state.image &&
-          <ProgressiveBackground image={this.state.image} prevImage={this.state.prevImage} />
+          this.state.errorMessage &&
+          <ErrorMessage>{this.state.errorMessage}</ErrorMessage>
         }
-      </Wrapper>
+        <Wrapper>
+          <Container>
+            <Shadow>
+              <WeatherPage
+                {...this.state}
+                onChange={this.handleChange}
+                onClick={this.handleClick}
+                onClose={this.handleClose}
+              />
+            </Shadow>
+          </Container>
+          {
+            this.state.image &&
+            <ProgressiveBackground image={this.state.image} prevImage={this.state.prevImage} />
+          }
+        </Wrapper>
+      </Fragment>
     );
   }
 }
