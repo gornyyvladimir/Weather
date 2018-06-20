@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://gornyyvladimir.github.io/Weather",
+  "engines": {
+    "node": ">= 10.x.x",
+    "npm": ">= 5.x.x"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "gh-pages": "^1.1.0",
