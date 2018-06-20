@@ -1,7 +1,7 @@
 language: node_js
 sudo: false
 cache: yarn
-node_js: 10
+node_js: 9
 deploy:
   provider: pages
   skip-cleanup: true
