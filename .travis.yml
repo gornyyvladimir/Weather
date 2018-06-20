@@ -1,0 +1,10 @@
+language: node_js
+node_js: 10
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token:
+    secure: e/VWnmlxu3qS1yo5cVHEmobhpO1OPs6Tb45mdBtYs7ePUuqqJ9k7WRNLVzwxBw1J5L7yK5p47FTlT+zMxCoO5zztmYNxC91L7GR1XrUf6At+c5fZLJXaml66SuBzraRgdMw6bkbSRSzqT1QD5UvLj5ZAO97Xr9TRlIPoDwWrF/gx5BRavV2skmzQM7DQdRpKbM2iMzTS5ZuxX2r9TpPWJYd5CqBP41s24grxLxatR4sujmnekwDzLKcTmGHO2rAzO9JL1/Kuqzd+cHM0UUVJwyhfV9s+sRGXyy0cKpFfLH6k2zoisG16Bd2aPW6YoR3A7jvl+9BVcprwWHETTG1/EMd5JvY7gDzrbFUp14AuGD+qwup8w94PjFQdnf5lw2mzwEtSX2brzesjykMHDJ0yo5DT+L22OP2QdmbMKeE+K+9w/zwrtpIc+jaulrqWMgiYV6XwHvcf7sE8FFXQajf38CMnLdkV02m218EK7XVIQrh0yNNVyZUdyluG+xg/oxbvd8Lbhz+1u370KrZXjSW0raXj588tmWTTcUB0P+F1qyaUGHCHgr9w1fQ3CaC6KJwDvq+aavWPLIfKpJ7Oi85fEdj0k8l0IH7pLEOp2EJ+5Tss2jf8tYbmIwKPBfILPk5hDJKGIEqIrp3yCpvWb+500GFFYVdgksTpz+2Y0fF6U+U=
+  keep-history: true
+  on:
+    branch: master
