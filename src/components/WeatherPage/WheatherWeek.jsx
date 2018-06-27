@@ -57,6 +57,7 @@ const WheatherWeek = ({ weekWeather, onClick }) => (
   <UnstyledList>
     {
       weekWeather && weekWeather.map((item, key) => (
+        // eslint-disable-next-line
         <Item key={key} onClick={onClick(key)}>
           <WheatherItem
             day={getDay(item.dt * 1000)}
