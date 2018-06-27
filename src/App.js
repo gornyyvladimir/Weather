@@ -2,6 +2,7 @@ import React from 'react';
 import { injectGlobal, ThemeProvider } from 'styled-components';
 import WeatherContainer from './containers/WeatherContainer';
 
+// eslint-disable-next-line
 injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700');
   body{
@@ -15,7 +16,7 @@ const theme = {
   overlay: 'rgba(25, 42, 86, 0.5)',
 };
 
-const App = props => (
+const App = () => (
   <ThemeProvider theme={theme}>
     <WeatherContainer />
   </ThemeProvider>
