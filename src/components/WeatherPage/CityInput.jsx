@@ -13,6 +13,7 @@ const Input = styled.input`
   border-color: ${props => (props.hasError ? 'red' : 'white')};
   transition: border-color 0.5s ease-in-out;
   box-sizing: border-box;
+
   &:focus {
     outline: 0;
   }

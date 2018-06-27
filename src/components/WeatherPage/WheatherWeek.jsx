@@ -9,9 +9,11 @@ const UnstyledList = styled.ul`
   padding: 0;
   margin: 0;
   background-color: white;
+
   li {
     list-style: none;
   }
+
   ${breakpoint('tablet')`
     display: flex;
     justify-content: space-around;
@@ -49,7 +51,6 @@ const Item = styled.li`
     padding-bottom: 40px;
     flex-direction: column;
   `}
-
 `;
 
 const WheatherWeek = ({ weekWeather, onClick }) => (

@@ -23,13 +23,10 @@ const Temperature = styled.span`
   `}
 `;
 
-const Icon = styled.img`
-`;
-
 const WheatherItem = ({ day, temp, weather }) => (
   <Fragment>
     <Day>{day}</Day>
-    <Icon src={weatherIcons[weather[0].icon]} alt="snow" />
+    <img src={weatherIcons[weather[0].icon]} alt="snow" />
     <Temperature>{Math.floor(temp)}° C</Temperature>
   </Fragment>
 );

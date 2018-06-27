@@ -68,10 +68,13 @@ const Close = styled.button`
   background: none;
   z-index: 10;
   cursor: pointer;
+
   &:focus {
     outline: 0;
   }
-  &::after, &::before {
+
+  &::after,
+  &::before {
     content: '';
     position: absolute;
     top: 0;
@@ -80,9 +83,11 @@ const Close = styled.button`
     height: 100%;
     background: black;
   }
+
   &::after {
     transform: rotate(45deg);
   }
+
   &::before {
     transform: rotate(-45deg);
   }
@@ -91,6 +96,7 @@ const Close = styled.button`
 const UnstyledList = styled.ul`
   padding: 0;
   margin: 0;
+
   li {
     list-style: none;
   }
@@ -113,8 +119,6 @@ const WheatherCard = (props) => {
       temp: item.temp.day,
     }
   ));
-  console.log(data);
-  console.log(props);
 
   const dayWeather = props.weekWeather[props.itemId];
 

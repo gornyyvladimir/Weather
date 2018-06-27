@@ -18,8 +18,9 @@ const Cover = styled.div`
   background: ${props => (props.url ? `url(${props.url})` : `url(${transparent})`)};
   background-position: center center;
   background-size: cover;
-  transition: background ease-in-out 1s;
+  transition: background-image ease-in-out 1s;
   z-index: 1;
+
   &::before {
     content: '';
     position: absolute;
@@ -33,6 +34,7 @@ const Cover = styled.div`
       ${borderRadiusMixin}
     `}
   }
+
   ${breakpoint('tablet')`
     ${borderRadiusMixin}
   `}
@@ -54,14 +56,14 @@ const Temperature = styled.span`
   font-size: 82px;
   font-weight: 700;
   color: white;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 `;
 
 const City = styled.span`
   font-size: 22px;
   font-weight: 300;
   color: white;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
   margin-top: auto;
 `;
 
@@ -69,7 +71,7 @@ const Weather = styled.span`
   font-size: 22px;
   font-weight: 300;
   color: white;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: auto;
 `;
 
