@@ -2,7 +2,7 @@ language: node_js
 sudo: false
 cache: yarn
 node_js: 9
-script: yarn lint && yarn lint:css && yarn build
+script: yarn lint && yarn lint:css && yarn test:ci && yarn build
 deploy:
   provider: pages
   skip-cleanup: true
