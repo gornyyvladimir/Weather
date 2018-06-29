@@ -6,3 +6,36 @@ This project was created for training React.js. It use [Styled components](https
 
 Project built on React 16, ES7. It use async, await, axios for make requests.
 The project is adapted to [PWA](https://developers.google.com/web/progressive-web-apps/).
+
+## Setup
+
+### Requirements
+
+1. [NVM](https://github.com/creationix/nvm#install-script)
+2. Node >4, <=9
+3. [Yarn](https://yarnpkg.com/lang/en/docs/install/)
+4. [Watchman](https://facebook.github.io/watchman/docs/install.html)
+
+### Starting
+
+Resolve dependencies
+
+```bash
+yarn
+```
+
+Start app on dev server
+
+```bash
+yarn start
+```
+
+Run tests
+
+```bash
+yarn test
+```
+
+### Deployment
+
+We use Travis CI for deployment. Deployment triggers on any commit on branch "production"
