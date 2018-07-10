@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ProgressiveImage from 'react-progressive-image';
 import styled, { css } from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
-import CityInput from './CityInput';
+import GooglePlaces from './GooglePlaces';
 
 // transparent image for fade effect
 const transparent = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48L3N2Zz4=';
@@ -83,7 +83,7 @@ const WheatherCover = props => (
     {(src, loading) => (
       <Cover url={src} loading={loading}>
         <Container>
-          <CityInput onChange={props.onChange} value={props.inputValue} hasError={props.hasError} />
+          <GooglePlaces />
           <City>{`${props.city}, ${props.country}`}</City>
           <Temperature>
             {props.weekWeather ? Math.floor(props.weekWeather[0].temp.day) : null}°
