@@ -1,23 +1,42 @@
 import React from 'react';
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
+import PropTypes from 'prop-types';
+import PlacesAutocomplete from 'react-places-autocomplete';
 
-class GooglePlaces extends React.Component {
-  render() {
-    return (
-      <PlacesAutocomplete
-        value=""
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            here will be an autocomplete input
-          </div>
-        )}
-      </PlacesAutocomplete>
-    );
-  }
-}
+const GooglePlaces = ({ value, onChange, onSelect }) => (
+  <PlacesAutocomplete
+    value={value}
+    onChange={onChange}
+    onSelect={onSelect}
+  >
+    {({
+ getInputProps, suggestions, getSuggestionItemProps, loading,
+}) => (
+  <div>
+    <input
+      {...getInputProps({
+          placeholder: 'Search Places ...',
+        })}
+    />
+    <div>
+      {loading && <div>Loading...</div>}
+      {suggestions.map(suggestion => (
+        <div
+          {...getSuggestionItemProps(suggestion)}
+        >
+          <span>{suggestion.description}</span>
+        </div>
+          ))
+        }
+    </div>
+  </div>
+    )}
+  </PlacesAutocomplete>
+);
 
-export default GooglePlaces
+GooglePlaces.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
+};
+
+export default GooglePlaces;
