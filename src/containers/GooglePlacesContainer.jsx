@@ -12,7 +12,7 @@ class GooglePlacesContainer extends Component {
 
   render() {
     return (
-      <GooglePlaces value={this.state.value} onChange={this.handleChange} />
+      <GooglePlaces value={this.state.value} onChange={this.handleChange} onSelect={() => {}} />
     );
   }
 }
