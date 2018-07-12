@@ -83,7 +83,7 @@ const WheatherCover = props => (
     {(src, loading) => (
       <Cover url={src} loading={loading}>
         <Container>
-          <GooglePlacesContainer />
+          <GooglePlacesContainer onAddressChange={() => {}} />
           <City>{`${props.city}, ${props.country}`}</City>
           <Temperature>
             {props.weekWeather ? Math.floor(props.weekWeather[0].temp.day) : null}°
