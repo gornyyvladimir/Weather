@@ -1,11 +1,12 @@
 describe('GooglePlacesContainer', () => {
+  const GooglePlacesContainer = require('./GooglePlacesContainer').default;
+
   test('handleChange', () => {
     // arrange
     const expectedValue = 'Kazan';
     const expectedState = {
       value: expectedValue,
     };
-    const GooglePlacesContainer = require('./GooglePlacesContainer').default;
     const googlePlacesContainer = new GooglePlacesContainer();
     function fakeSetState(obj) {
       this.state = obj;
@@ -22,10 +23,23 @@ describe('GooglePlacesContainer', () => {
     const expectedState = {
       value: '',
     };
-    const GooglePlacesContainer = require('./GooglePlacesContainer').default;
     // act
     const googlePlacesContainer = new GooglePlacesContainer();
     // assert
     expect(googlePlacesContainer.state).toEqual(expectedState);
+  });
+
+  test('handleSelect', () => {
+    // arrange
+    const expectedAddress = 'Kazan';
+    const mockOnAddressChange = jest.fn();
+    const expectedProps = {
+      onAddressChange: mockOnAddressChange,
+    };
+    const googlePlacesContainer = new GooglePlacesContainer(expectedProps);
+    // act
+    googlePlacesContainer.handleSelect(expectedAddress);
+    // assert
+    expect(googlePlacesContainer.props.onAddressChange).toBeCalledWith(expectedAddress);
   });
 });
