@@ -70,7 +70,7 @@ class WeatherContainer extends Component {
     this.getWeatherAndImage('Kazan', this.state.width, this.state.height);
   }
 
-  async getWeatherAndImage(searchedCity, w = null, h = null) {
+  getWeatherAndImage = async (searchedCity, w = null, h = null) => {
     // weather request
     let weekWeather;
     try {
@@ -155,6 +155,7 @@ class WeatherContainer extends Component {
                 onChange={this.handleChange}
                 onClick={this.handleClick}
                 onClose={this.handleClose}
+                getWeatherAndImage={this.getWeatherAndImage}
               />
             </Shadow>
           </Container>

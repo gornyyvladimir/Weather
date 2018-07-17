@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import GooglePlaces from '../components/WeatherPage/GooglePlaces';
 
 class GooglePlacesContainer extends Component {
@@ -11,8 +12,10 @@ class GooglePlacesContainer extends Component {
     this.setState({ value });
   }
 
-  handleSelect = (address) => {
-    this.props.onAddressChange(address);
+  handleSelect = async (address) => {
+    const results = await geocodeByAddress(address);
+    const { lat, lng } = await getLatLng(results[0]);
+    this.props.onAddressChange(lat, lng);
   }
 
   render() {
