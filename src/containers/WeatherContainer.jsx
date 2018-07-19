@@ -71,6 +71,23 @@ class WeatherContainer extends Component {
     this.getWeatherAndImage('Kazan', this.state.width, this.state.height);
   }
 
+  getWeather = async (searchedCity) => {
+    try {
+      const weather = await fetchWeather(searchedCity);
+      this.setState({
+        weekWeather: weather.data.list,
+        city: weather.data.city.name,
+        country: weather.data.city.country,
+        hasError: false,
+        errorMessage: '',
+      });
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        this.setState({ hasError: true });
+      }
+    }
+  }
+
   getWeatherAndImage = async (searchedCity, w = null, h = null) => {
     // weather request
     let weekWeather;
