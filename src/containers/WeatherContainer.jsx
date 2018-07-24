@@ -71,9 +71,9 @@ class WeatherContainer extends Component {
     this.getWeatherAndImage('Kazan', this.state.width, this.state.height);
   }
 
-  getWeather = async (searchedCity) => {
+  getWeather = async (lat, lon) => {
     try {
-      const weather = await fetchWeather(searchedCity);
+      const weather = await fetchWeather(lat, lon);
       this.setState({
         weekWeather: weather.data.list,
         city: weather.data.city.name,
@@ -88,11 +88,31 @@ class WeatherContainer extends Component {
     }
   }
 
-  getWeatherAndImage = async (searchedCity, w = null, h = null) => {
+  getImage = async (weekWeather, w = null, h = null) => {
+    try {
+      // if weather request failed
+      if (!weekWeather) {
+        throw new Error(`Weather request error: ${this.state.errorMessage}`);
+      }
+      const image = await fetchImage(weatherHelper(weekWeather[0].weather[0].main), w, h);
+      this.setState(prevState => ({
+        prevImage: prevState.image || null,
+        image: image.data.urls.custom,
+        errorMessage: '',
+      }));
+    } catch (error) {
+      this.setState({
+        image: defaulImage,
+        errorMessage: error.message,
+      });
+    }
+  }
+
+  getWeatherAndImage = async (lat, lon, w = null, h = null) => {
     // weather request
     let weekWeather;
     try {
-      const weather = await fetchWeather(searchedCity);
+      const weather = await fetchWeather(lat, lon);
       // var because wee need this in image request
       weekWeather = weather.data.list.map(dayWeather => ({ ...dayWeather }));
 
