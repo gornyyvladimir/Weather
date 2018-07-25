@@ -114,7 +114,7 @@ describe('WeatherContainer', () => {
 
   test('getImage - Happy Path', async () => {
     // arrange
-    const exptectedWeekWeather = [{
+    const expectedWeekWeather = [{
       weather: [{
         main: 'Sunny',
       }],
@@ -151,7 +151,7 @@ describe('WeatherContainer', () => {
     weatherContainer.state = {};
     weatherContainer.setState = fakeSetState.bind(weatherContainer);
     // act
-    await weatherContainer.getImage(exptectedWeekWeather, expectedWidth, expectedHeight);
+    await weatherContainer.getImage(expectedWeekWeather, expectedWidth, expectedHeight);
     // assert
     expect(weatherContainer.state).toEqual(expectedState);
   });
