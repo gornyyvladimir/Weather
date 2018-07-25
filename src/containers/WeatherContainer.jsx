@@ -7,7 +7,7 @@ import fetchImage from '../services/imageApi';
 import weatherHelper from '../helpers/weather';
 import WeatherPage from '../components/WeatherPage';
 import ProgressiveBackground from '../components/ProgressiveBackground';
-import defaulImage from './default.jpeg';
+import defaultImage from './default.jpeg';
 import defaultWeather from '../helpers/defaultWeather';
 
 const ErrorMessage = styled.p`
@@ -88,13 +88,9 @@ class WeatherContainer extends Component {
     }
   }
 
-  getImage = async (weekWeather, w = null, h = null) => {
+  getImage = async (weatherDescription, width = null, height = null) => {
     try {
-      // if weather request failed
-      if (!weekWeather) {
-        throw new Error(`Weather request error: ${this.state.errorMessage}`);
-      }
-      const image = await fetchImage(weatherHelper(weekWeather[0].weather[0].main), w, h);
+      const image = await fetchImage(weatherDescription, width, height);
       this.setState(prevState => ({
         prevImage: prevState.image || null,
         image: image.data.urls.custom,
@@ -102,7 +98,7 @@ class WeatherContainer extends Component {
       }));
     } catch (error) {
       this.setState({
-        image: defaulImage,
+        image: defaultImage,
         errorMessage: error.message,
       });
     }
@@ -129,7 +125,7 @@ class WeatherContainer extends Component {
         return;
       }
       this.setState({
-        image: defaulImage,
+        image: defaultImage,
         errorMessage: error.message,
       });
     }
@@ -147,7 +143,7 @@ class WeatherContainer extends Component {
       }));
     } catch (error) {
       this.setState({
-        image: defaulImage,
+        image: defaultImage,
         errorMessage: error.message,
       });
     }

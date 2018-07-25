@@ -114,21 +114,16 @@ describe('WeatherContainer', () => {
 
   test('getImage - Happy Path', async () => {
     // arrange
-    const expectedWeekWeather = [{
-      weather: [{
-        main: 'Sunny',
-      }],
-    }];
+    const expectedWeatherDescription = 'Sunny';
 
+    const expectedImageUrl = 'http://unsplash/myimage.jpeg';
     const expectedImage = {
       data: {
         urls: {
-          custom: 'http://unsplash/myimage.jpeg',
+          custom: expectedImageUrl,
         },
       },
     };
-
-    const expectedImageUrl = 'http://unsplash/myimage.jpeg';
 
     const expectedState = {
       prevImage: null,
@@ -137,14 +132,52 @@ describe('WeatherContainer', () => {
     };
     const expectedWidth = 1920;
     const expectedHeight = 1080;
-    const mockWeatherHelper = jest.fn(() => 'Sunny');
-    jest.mock('../helpers/weather', () => mockWeatherHelper);
 
     const mockFetchImage = jest.fn(() => new Promise((resolve) => { resolve(expectedImage); }));
     jest.mock('../services/imageApi', () => mockFetchImage);
 
     function fakeSetState(stateModifier) {
       this.state = { ...this.state, ...stateModifier(this.state) };
+    }
+    const WeatherContainer = require('./WeatherContainer').default;
+    const weatherContainer = new WeatherContainer();
+    weatherContainer.state = {};
+    weatherContainer.setState = fakeSetState.bind(weatherContainer);
+    // act
+    await weatherContainer.getImage(expectedWeatherDescription, expectedWidth, expectedHeight);
+    // assert
+    expect(weatherContainer.state).toEqual(expectedState);
+  });
+
+  test('getImage - failed', async () => {
+    // arrange
+    const expectedWeekWeather = [{
+      weather: [{
+        main: 'Sunny',
+      }],
+    }];
+
+    const expectedErrorMessage = 'Sorry, your princess is in another castle';
+    const expectedError = { message: expectedErrorMessage };
+
+    const expectedDefaultImage = 'default.jpeg';
+
+    const expectedState = {
+      image: expectedDefaultImage,
+      errorMessage: expectedErrorMessage,
+    };
+    const expectedWidth = 1920;
+    const expectedHeight = 1080;
+    const mockWeatherHelper = jest.fn(() => 'Sunny');
+    jest.mock('../helpers/weather', () => mockWeatherHelper);
+
+    const mockFetchImage = jest.fn(() => new Promise((resolve, reject) => {
+      reject(expectedError);
+    }));
+    jest.mock('../services/imageApi', () => mockFetchImage);
+
+    function fakeSetState(state) {
+      this.state = state;
     }
     const WeatherContainer = require('./WeatherContainer').default;
     const weatherContainer = new WeatherContainer();
