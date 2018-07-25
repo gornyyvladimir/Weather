@@ -43,6 +43,75 @@ describe('WeatherContainer', () => {
     expect(mockFetchWeather).toBeCalledWith(expectedLat, expectedLng);
   });
 
+  test('getWeather - failed, has response status 404', async () => {
+    // arrange
+    const expectedState = {
+      hasError: true,
+    };
+    const expectedResponseStatus = 404;
+    const expectedError = {
+      response: {
+        status: expectedResponseStatus,
+      },
+    };
+    const mockFetchWeather = jest.fn(() => new Promise((resolve, reject) => {
+      reject(expectedError);
+    }));
+
+    jest.mock('../services/weatherApi', () => mockFetchWeather);
+    const WeatherContainer = require('./WeatherContainer').default;
+    const expectedLat = 55.8304307;
+    const expectedLng = 49.06608060000008;
+    function fakeSetState(obj) {
+      this.state = obj;
+    }
+    const weatherContainer = new WeatherContainer();
+    weatherContainer.state = {};
+    weatherContainer.setState = fakeSetState.bind(weatherContainer);
+    // act
+    await weatherContainer.getWeather(expectedLat, expectedLng);
+    // assert
+    expect(weatherContainer.state).toEqual(expectedState);
+  });
+
+  test('getWeather - failed, has response status 500', async () => {
+    // arrange
+    const expectedWeekWeather = [{}];
+    const expectedCity = 'Kazan';
+    const expectedCountry = 'Russia';
+    const expectedState = {
+      weekWeather: expectedWeekWeather,
+      city: expectedCity,
+      country: expectedCountry,
+      hasError: false,
+      errorMessage: '',
+    };
+    const expectedResponseStatus = 500;
+    const expectedError = {
+      response: {
+        status: expectedResponseStatus,
+      },
+    };
+    const mockFetchWeather = jest.fn(() => new Promise((resolve, reject) => {
+      reject(expectedError);
+    }));
+
+    jest.mock('../services/weatherApi', () => mockFetchWeather);
+    const WeatherContainer = require('./WeatherContainer').default;
+    const expectedLat = 55.8304307;
+    const expectedLng = 49.06608060000008;
+    function fakeSetState(obj) {
+      this.state = obj;
+    }
+    const weatherContainer = new WeatherContainer();
+    weatherContainer.state = expectedState;
+    weatherContainer.setState = fakeSetState.bind(weatherContainer);
+    // act
+    await weatherContainer.getWeather(expectedLat, expectedLng);
+    // assert
+    expect(weatherContainer.state).toEqual(expectedState);
+  });
+
   test('getImage - Happy Path', async () => {
     // arrange
     const exptectedWeekWeather = [{
