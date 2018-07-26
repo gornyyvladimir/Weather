@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 describe('WeatherContainer', () => {
   beforeEach(() => {
     jest.resetModules();
@@ -187,5 +188,25 @@ describe('WeatherContainer', () => {
     await weatherContainer.getImage(expectedWeekWeather, expectedWidth, expectedHeight);
     // assert
     expect(weatherContainer.state).toEqual(expectedState);
+  });
+
+  test('getWeatherAndImage with weatherDescription', () => {
+    // arrange
+    const expectedLat = 55.8304307;
+    const expectedLng = 49.06608060000008;
+    const expectedWidth = 1920;
+    const expectedHeight = 1080;
+    const expectedWeatherDescription = 'Sunny';
+    const mockGetWeather = jest.fn();
+    const mockGetImage = jest.fn();
+    const WeatherContainer = require('./WeatherContainer').default;
+    const weatherContainer = new WeatherContainer();
+    weatherContainer.getWeather = mockGetWeather;
+    weatherContainer.getImage = mockGetImage;
+    // act
+    weatherContainer.getWeatherAndImage(expectedLat, expectedLng, expectedWidth, expectedHeight);
+    // assert
+    expect(weatherContainer.getWeather).toBeCalledWith(expectedLat, expectedLng);
+    expect(weatherContainer.getImage).toBeCalledWith(expectedWeatherDescription, expectedWidth, expectedHeight);
   });
 });

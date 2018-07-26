@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
 import fetchWeather from '../services/weatherApi';
 import fetchImage from '../services/imageApi';
-import weatherHelper from '../helpers/weather';
 import WeatherPage from '../components/WeatherPage';
 import ProgressiveBackground from '../components/ProgressiveBackground';
 import defaultImage from './default.jpeg';
@@ -104,49 +103,10 @@ class WeatherContainer extends Component {
     }
   }
 
-  getWeatherAndImage = async (lat, lon, w = null, h = null) => {
-    // weather request
-    let weekWeather;
-    try {
-      const weather = await fetchWeather(lat, lon);
-      // var because wee need this in image request
-      weekWeather = weather.data.list.map(dayWeather => ({ ...dayWeather }));
-
-      this.setState({
-        weekWeather,
-        city: weather.data.city.name,
-        country: weather.data.city.country,
-        hasError: false,
-        errorMessage: '',
-      });
-    } catch (error) {
-      if (error.response && error.response.status === 404) {
-        this.setState({ hasError: true });
-        return;
-      }
-      this.setState({
-        image: defaultImage,
-        errorMessage: error.message,
-      });
-    }
-    // image request
-    try {
-      // if weather request failed
-      if (!weekWeather) {
-        throw new Error(`Weather request error: ${this.state.errorMessage}`);
-      }
-      const image = await fetchImage(weatherHelper(weekWeather[0].weather[0].main), w, h);
-      this.setState(prevState => ({
-        prevImage: prevState.image || null,
-        image: image.data.urls.custom,
-        errorMessage: '',
-      }));
-    } catch (error) {
-      this.setState({
-        image: defaultImage,
-        errorMessage: error.message,
-      });
-    }
+  getWeatherAndImage = async (lat, lon, width = null, height = null) => {
+    this.getWeather(lat, lon);
+    const weatherDescription = 'Sunny';
+    this.getImage(weatherDescription, width, height);
   }
 
   handleChange = (e) => {
