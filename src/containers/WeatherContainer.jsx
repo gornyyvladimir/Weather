@@ -71,20 +71,8 @@ class WeatherContainer extends Component {
   }
 
   getWeather = async (lat, lon) => {
-    try {
-      const weather = await fetchWeather(lat, lon);
-      this.setState({
-        weekWeather: weather.data.list,
-        city: weather.data.city.name,
-        country: weather.data.city.country,
-        hasError: false,
-        errorMessage: '',
-      });
-    } catch (error) {
-      if (error.response && error.response.status === 404) {
-        this.setState({ hasError: true });
-      }
-    }
+    const weather = await fetchWeather(lat, lon);
+    return weather;
   }
 
   getImage = async (weatherDescription, width = null, height = null) => {
