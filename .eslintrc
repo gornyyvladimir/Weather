@@ -11,6 +11,7 @@
           "every": [ "nesting", "id" ]
       },
       "allowChildren": false
-    }]
+    }],
+    "max-len": 0
   }
 }

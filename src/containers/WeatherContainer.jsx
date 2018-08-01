@@ -1,12 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { debounce } from 'lodash';
 import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
-import fetchWeather from '../services/weatherApi';
-import fetchImage from '../services/imageApi';
+import getWeather from '../adapters/weatherAdapter';
+import getImage from '../adapters/imageAdapter';
 import WeatherPage from '../components/WeatherPage';
 import ProgressiveBackground from '../components/ProgressiveBackground';
-import defaultImage from './default.jpeg';
 import defaultWeather from '../helpers/defaultWeather';
 
 const ErrorMessage = styled.p`
@@ -62,39 +60,16 @@ class WeatherContainer extends Component {
       height: 600,
       itemId: null,
     };
-
-    this.getWeatherAndImageDebounced = debounce(this.getWeatherAndImage, 1000);
   }
 
   componentDidMount() {
-    this.getWeatherAndImage('Kazan', this.state.width, this.state.height);
+    this.setWeatherAndImage(55, 55, this.state.width, this.state.height);
   }
 
-  getWeather = async (lat, lon) => {
-    const weather = await fetchWeather(lat, lon);
-    return weather;
-  }
-
-  getImage = async (weatherDescription, width = null, height = null) => {
-    try {
-      const image = await fetchImage(weatherDescription, width, height);
-      this.setState(prevState => ({
-        prevImage: prevState.image || null,
-        image: image.data.urls.custom,
-        errorMessage: '',
-      }));
-    } catch (error) {
-      this.setState({
-        image: defaultImage,
-        errorMessage: error.message,
-      });
-    }
-  }
-
-  getWeatherAndImage = async (lat, lon, width = null, height = null) => {
-    this.getWeather(lat, lon);
+  setWeatherAndImage = async (lat, lon, width = null, height = null) => {
+    getWeather(lat, lon);
     const weatherDescription = 'Sunny';
-    this.getImage(weatherDescription, width, height);
+    getImage(weatherDescription, width, height);
   }
 
   handleChange = (e) => {
@@ -102,12 +77,7 @@ class WeatherContainer extends Component {
       inputValue: e.target.value,
     });
 
-    // dont make request
-    if (!e.target.value.length) {
-      this.getWeatherAndImageDebounced.cancel();
-      return;
-    }
-    this.getWeatherAndImageDebounced(e.target.value, this.state.width, this.state.height);
+    this.setWeatherAndImage(e.target.value, this.state.width, this.state.height);
   }
 
   handleClick = param => () => (
