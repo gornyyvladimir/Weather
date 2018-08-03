@@ -4,7 +4,7 @@ describe('imageAdapter', () => {
     const expectedWeatherDescription = 'Sunny';
     const expectedImageUrl = 'https://images.unsplash.com/photo-1496450681664-3df85efbd29f?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjIyODM0fQ&s=ccbf560869799321eebf9150b7b864ff';
     const expectedUserLink = 'https://unsplash.com/@lukaszlada';
-    const expectedUserName = 'Vladimir Vladimwirovich';
+    const expectedUserName = 'Vladimir Vladimirovich';
     const expectedRawImageData = {
       data: {
         id: 'LtWFFVi1RXQ',

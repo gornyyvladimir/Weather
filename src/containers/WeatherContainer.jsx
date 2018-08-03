@@ -5,7 +5,6 @@ import getWeather from '../adapters/weatherAdapter';
 import getImage from '../adapters/imageAdapter';
 import WeatherPage from '../components/WeatherPage';
 import ProgressiveBackground from '../components/ProgressiveBackground';
-import defaultWeather from '../helpers/defaultWeather';
 
 const ErrorMessage = styled.p`
   background: #e84118;
@@ -46,6 +45,8 @@ const Shadow = styled.div`
   `}
 `;
 
+export const ERROR_MESSAGE = 'Sorry! We can\'t get weather now!!! ¯\\_(ツ)_/¯';
+
 class WeatherContainer extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +54,6 @@ class WeatherContainer extends Component {
       inputValue: '',
       city: 'City',
       country: 'Country',
-      weekWeather: defaultWeather,
       errorMessage: '',
       hasError: false,
       width: 900,
@@ -66,10 +66,21 @@ class WeatherContainer extends Component {
     this.setWeatherAndImage(55, 55, this.state.width, this.state.height);
   }
 
-  setWeatherAndImage = async (lat, lon, width = null, height = null) => {
-    getWeather(lat, lon);
-    const weatherDescription = 'Sunny';
-    getImage(weatherDescription, width, height);
+  setWeatherAndImage = async (lat, lon) => {
+    try {
+      const weekWeather = await getWeather(lat, lon);
+      const weatherDescription = weekWeather[0].description;
+      const imageData = await getImage(weatherDescription);
+      this.setState({
+        weekWeather,
+        imageData,
+      });
+    } catch (error) {
+      this.setState({
+        hasError: true,
+        errorMessage: ERROR_MESSAGE,
+      });
+    }
   }
 
   handleChange = (e) => {
