@@ -1,7 +1,9 @@
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY } from '../constants/constants';
+
 describe('GooglePlacesContainer', () => {
   const expectedGeocodeResults = [{ place_id: 'ChIJmc2sfCutXkERZYyttbl3y38' }];
-  const expectedLat = 55.8304307;
-  const expectedLng = 49.06608060000008;
+  const expectedLat = DEFAULT_LATITUDE;
+  const expectedLng = DEFAULT_LONGITUDE;
   const expectedLatLng = { lat: expectedLat, lng: expectedLng };
 
   const mockGetLatLng = jest.fn(() => new Promise((resolve) => {
@@ -23,7 +25,7 @@ describe('GooglePlacesContainer', () => {
 
   test('handleChange', () => {
     // arrange
-    const expectedValue = 'Kazan';
+    const expectedValue = DEFAULT_CITY;
     const expectedState = {
       value: expectedValue,
     };
@@ -51,7 +53,7 @@ describe('GooglePlacesContainer', () => {
 
   test('handleSelect', async () => {
     // arrange
-    const expectedAddress = 'Kazan';
+    const expectedAddress = DEFAULT_CITY;
     const mockOnAddressChange = jest.fn();
     const expectedProps = {
       onAddressChange: mockOnAddressChange,

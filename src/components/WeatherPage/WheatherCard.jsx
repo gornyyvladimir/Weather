@@ -115,8 +115,8 @@ const WheatherCard = (props) => {
   // data for chart
   const data = props.weekWeather.map(item => (
     {
-      name: getDay(item.dt * 1000),
-      temp: item.temp.day,
+      name: getDay(item.datetime * 1000),
+      temp: item.temperature.day,
     }
   ));
 
@@ -129,27 +129,27 @@ const WheatherCard = (props) => {
         <UnstyledList>
           <Item>
             <span>Night</span>
-            <span>{dayWeather.temp.night}° C</span>
+            <span>{dayWeather.temperature.night}° C</span>
           </Item>
           <Item>
             <span>Morning</span>
-            <span>{dayWeather.temp.morn}° C</span>
+            <span>{dayWeather.temperature.morn}° C</span>
           </Item>
           <Item>
             <span>Day</span>
-            <span>{dayWeather.temp.day}° C</span>
+            <span>{dayWeather.temperature.day}° C</span>
           </Item>
           <Item>
             <span>Evening</span>
-            <span>{dayWeather.temp.eve}° C</span>
+            <span>{dayWeather.temperature.eve}° C</span>
           </Item>
           <Item>
             <span>Min temperature</span>
-            <span>{dayWeather.temp.min}° C</span>
+            <span>{dayWeather.temperature.min}° C</span>
           </Item>
           <Item>
             <span>Max temperature</span>
-            <span>{dayWeather.temp.max}° C</span>
+            <span>{dayWeather.temperature.max}° C</span>
           </Item>
           <Item>
             <span>Cloudiness</span>

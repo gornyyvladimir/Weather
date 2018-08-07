@@ -1,3 +1,5 @@
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE } from '../constants/constants';
+
 describe('weatherApi', () => {
   test('default', async () => {
     // arrange
@@ -9,8 +11,8 @@ describe('weatherApi', () => {
     };
     jest.mock('axios', () => mockAxios);
     const weatherApi = require('./weatherApi');
-    const expectedLat = 55.8304307;
-    const expectedLng = 49.06608060000008;
+    const expectedLat = DEFAULT_LATITUDE;
+    const expectedLng = DEFAULT_LONGITUDE;
     const expectedApiUrl = weatherApi.WEATHER_API_URL;
     const expectedKey = weatherApi.WEATHER_API_KEY;
     const expectedOptions = {

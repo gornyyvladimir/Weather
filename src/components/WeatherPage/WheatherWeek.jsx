@@ -60,9 +60,9 @@ const WheatherWeek = ({ weekWeather, onClick }) => (
         // eslint-disable-next-line
         <Item key={key} onClick={onClick(key)}>
           <WheatherItem
-            day={getDay(item.dt * 1000)}
-            temp={item.temp.day}
-            weather={item.weather}
+            day={getDay(item.datetime * 1000)}
+            temperature={item.temperature.day}
+            icon={item.icon}
           />
         </Item>
       ))

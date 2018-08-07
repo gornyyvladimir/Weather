@@ -86,10 +86,10 @@ const WheatherCover = props => (
           <GooglePlacesContainer onAddressChange={props.getWeatherAndImage} />
           <City>{`${props.city}, ${props.country}`}</City>
           <Temperature>
-            {props.weekWeather ? Math.floor(props.weekWeather[0].temp.day) : null}°
+            {props.weekWeather ? Math.floor(props.weekWeather[0].temperature.day) : null}°
           </Temperature>
           <Weather>
-            {props.weekWeather && props.weekWeather[0].weather[0].main}
+            {props.weekWeather && props.weekWeather[0].description}
           </Weather>
         </Container>
       </Cover>

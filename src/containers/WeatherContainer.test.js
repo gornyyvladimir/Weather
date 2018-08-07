@@ -1,7 +1,27 @@
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE } from '../constants/constants';
+
 /* eslint-disable max-len */
 describe('WeatherContainer', () => {
   beforeEach(() => {
     jest.resetModules();
+  });
+
+  test('componentDidMount', () => {
+    // arrange
+    const expectedLat = DEFAULT_LATITUDE;
+    const expectedLng = DEFAULT_LONGITUDE;
+
+    const WeatherContainer = require('./WeatherContainer').default;
+    const weatherContainer = new WeatherContainer();
+
+    const mockSetWeatherAndImage = jest.fn();
+    weatherContainer.setWeatherAndImage = mockSetWeatherAndImage;
+
+    // act
+    weatherContainer.componentDidMount();
+
+    // assert
+    expect(weatherContainer.setWeatherAndImage).toBeCalledWith(expectedLat, expectedLng);
   });
 
   test('setWeatherAndImage - Happy path', async () => {
@@ -48,8 +68,8 @@ describe('WeatherContainer', () => {
       userName: expectedUserName,
     };
 
-    const expectedLat = 55.8304307;
-    const expectedLng = 49.06608060000008;
+    const expectedLat = DEFAULT_LATITUDE;
+    const expectedLng = DEFAULT_LONGITUDE;
     const mockGetWeather = jest.fn(() => new Promise((resolve) => {
       resolve(expectedWeekWeather);
     }));
@@ -81,10 +101,11 @@ describe('WeatherContainer', () => {
     expect(mockGetWeather).toBeCalledWith(expectedLat, expectedLng);
     expect(mockGetImage).toBeCalledWith(expectedWeatherDescription);
   });
+
   test('setWeatherAndImage getWeather fails', async () => {
     // arrange
-    const expectedLat = 55.8304307;
-    const expectedLng = 49.06608060000008;
+    const expectedLat = DEFAULT_LATITUDE;
+    const expectedLng = DEFAULT_LONGITUDE;
 
     const expectedError = {
       cod: '400',

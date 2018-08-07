@@ -23,18 +23,18 @@ const Temperature = styled.span`
   `}
 `;
 
-const WheatherItem = ({ day, temp, weather }) => (
+const WheatherItem = ({ day, temperature, icon }) => (
   <Fragment>
     <Day>{day}</Day>
-    <img src={weatherIcons[weather[0].icon]} alt="snow" />
-    <Temperature>{Math.floor(temp)}° C</Temperature>
+    <img src={weatherIcons[icon]} alt="snow" />
+    <Temperature>{Math.floor(temperature)}° C</Temperature>
   </Fragment>
 );
 
 WheatherItem.propTypes = {
   day: PropTypes.string.isRequired,
-  temp: PropTypes.number.isRequired,
-  weather: PropTypes.arrayOf(PropTypes.object).isRequired,
+  temperature: PropTypes.number.isRequired,
+  icon: PropTypes.string.isRequired,
 };
 
 export default WheatherItem;

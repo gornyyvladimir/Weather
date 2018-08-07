@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE } from '../constants/constants';
 import getWeather from '../adapters/weatherAdapter';
 import getImage from '../adapters/imageAdapter';
 import WeatherPage from '../components/WeatherPage';
@@ -63,7 +64,7 @@ class WeatherContainer extends Component {
   }
 
   componentDidMount() {
-    this.setWeatherAndImage(55, 55, this.state.width, this.state.height);
+    this.setWeatherAndImage(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
   }
 
   setWeatherAndImage = async (lat, lon) => {
