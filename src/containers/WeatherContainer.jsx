@@ -49,7 +49,6 @@ const Shadow = styled.div`
 export const ERROR_MESSAGE = 'Sorry! We can\'t get weather now!!! ¯\\_(ツ)_/¯';
 
 class WeatherContainer extends Component {
-
   state = {
     inputValue: '',
     city: DEFAULT_CITY,
