@@ -1,9 +1,27 @@
-import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE } from '../constants/constants';
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY, DEFAULT_COUNTRY } from '../constants/constants';
 
 /* eslint-disable max-len */
 describe('WeatherContainer', () => {
   beforeEach(() => {
     jest.resetModules();
+  });
+
+  test('constructor', () => {
+    // arrange
+    const expectedProps = {};
+    const expectedState = {
+      inputValue: '',
+      city: DEFAULT_CITY,
+      country: DEFAULT_COUNTRY,
+      errorMessage: '',
+      hasError: false,
+      itemId: null,
+    };
+    const WeatherContainer = require('./WeatherContainer').default;
+    // act
+    const weatherContainer = new WeatherContainer(expectedProps);
+    // assert
+    expect(weatherContainer.state).toEqual(expectedState);
   });
 
   test('componentDidMount', () => {

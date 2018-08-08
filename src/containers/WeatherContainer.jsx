@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
-import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE } from '../constants/constants';
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_COUNTRY, DEFAULT_CITY } from '../constants/constants';
 import getWeather from '../adapters/weatherAdapter';
 import getImage from '../adapters/imageAdapter';
 import WeatherPage from '../components/WeatherPage';
@@ -49,19 +49,15 @@ const Shadow = styled.div`
 export const ERROR_MESSAGE = 'Sorry! We can\'t get weather now!!! ¯\\_(ツ)_/¯';
 
 class WeatherContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputValue: '',
-      city: 'City',
-      country: 'Country',
-      errorMessage: '',
-      hasError: false,
-      width: 900,
-      height: 600,
-      itemId: null,
-    };
-  }
+
+  state = {
+    inputValue: '',
+    city: DEFAULT_CITY,
+    country: DEFAULT_COUNTRY,
+    errorMessage: '',
+    hasError: false,
+    itemId: null,
+  };
 
   componentDidMount() {
     this.setWeatherAndImage(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
@@ -119,7 +115,7 @@ class WeatherContainer extends Component {
                 onChange={this.handleChange}
                 onClick={this.handleClick}
                 onClose={this.handleClose}
-                getWeatherAndImage={this.getWeatherAndImage}
+                getWeatherAndImage={this.setWeatherAndImage}
               />
             </Shadow>
           </Container>
