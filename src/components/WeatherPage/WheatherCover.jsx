@@ -77,7 +77,7 @@ const Weather = styled.span`
 
 const WheatherCover = props => (
   <ProgressiveImage
-    src={props.image && props.image}
+    src={props.imageUrl}
     placeholder={props.prevImage && props.prevImage}
   >
     {(src, loading) => (
@@ -98,7 +98,7 @@ const WheatherCover = props => (
 );
 
 WheatherCover.propTypes = {
-  image: PropTypes.string,
+  imageUrl: PropTypes.string,
   prevImage: PropTypes.string,
   city: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
@@ -107,7 +107,7 @@ WheatherCover.propTypes = {
 };
 
 WheatherCover.defaultProps = {
-  image: '',
+  imageUrl: '',
   prevImage: '',
   weekWeather: null,
 };

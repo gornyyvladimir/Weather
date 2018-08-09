@@ -98,7 +98,9 @@ describe('WeatherContainer', () => {
 
     const expectedState = {
       weekWeather: expectedWeekWeather,
-      imageData: expectedImageData,
+      imageUrl: expectedImageUrl,
+      userUrl: expectedUserLink,
+      userName: expectedUserName,
     };
 
     function fakeSetState(newState) {

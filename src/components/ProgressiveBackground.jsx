@@ -17,7 +17,7 @@ const Background = styled.div`
     background-image: ${props => (props.url ? `url(${props.url})` : `url(${transparent})`)};
     background-position: center center;
     background-size: cover;
-    filter: blur(40px);
+    filter: blur(10px);
     transition: background ease-in-out 1s;
     transform: scale(1.1);
     z-index: -1;
@@ -26,7 +26,7 @@ const Background = styled.div`
 
 const ProgressiveBackground = props => (
   <ProgressiveImage
-    src={props.image}
+    src={props.imageUrl}
     placeholder={props.prevImage}
   >
     {src => <Background url={src} />}
@@ -38,7 +38,7 @@ ProgressiveBackground.defaultProps = {
 };
 
 ProgressiveBackground.propTypes = {
-  image: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
   prevImage: PropTypes.string,
 };
 

@@ -46,6 +46,27 @@ const Shadow = styled.div`
   `}
 `;
 
+const Author = styled.div`
+  position: relative;
+  z-index: 10;
+  font-size: 13px;
+  background: #fff;
+  border-radius: 0 0 4px 4px;
+  padding: 3px 12px;
+  color: #333;
+  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.3);
+
+  > a {
+    color: #333;
+  }
+
+  > a:hover {
+    text-decoration: none;
+  }
+`;
+
+const UNSPLASH_QUERY_PARAMS = '?utm_source=weather&utm_medium=referral';
+
 export const ERROR_MESSAGE = 'Sorry! We can\'t get weather now!!! ¯\\_(ツ)_/¯';
 
 class WeatherContainer extends Component {
@@ -69,7 +90,7 @@ class WeatherContainer extends Component {
       const imageData = await getImage(weatherDescription);
       this.setState({
         weekWeather,
-        imageData,
+        ...imageData,
       });
     } catch (error) {
       this.setState({
@@ -119,9 +140,12 @@ class WeatherContainer extends Component {
             </Shadow>
           </Container>
           {
-            this.state.image &&
-            <ProgressiveBackground image={this.state.image} prevImage={this.state.prevImage} />
+            this.state.imageUrl &&
+            <ProgressiveBackground imageUrl={this.state.imageUrl} prevImage={this.state.prevImage} />
           }
+          <Author>
+            Photo by <a href={this.state.userUrl + UNSPLASH_QUERY_PARAMS} target="_blank">{this.state.userName}</a> on <a href={`https://unsplash.com/${UNSPLASH_QUERY_PARAMS}`}>Unsplash</a>
+          </Author>
         </Wrapper>
       </Fragment>
     );
