@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PlacesAutocomplete from 'react-places-autocomplete';
 
-const GooglePlaces = ({ value, onChange, onSelect }) => (
+const GooglePlaces = ({
+  value, onChange, onSelect, searchOptions,
+}) => (
   <PlacesAutocomplete
     value={value}
     onChange={onChange}
     onSelect={onSelect}
+    searchOptions={searchOptions}
   >
     {({
  getInputProps, suggestions, getSuggestionItemProps, loading,
@@ -37,6 +40,9 @@ GooglePlaces.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
+  searchOptions: PropTypes.shape({
+    types: PropTypes.array.isRequired,
+  }).isRequired,
 };
 
 export default GooglePlaces;

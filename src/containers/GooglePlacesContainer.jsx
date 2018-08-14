@@ -19,11 +19,15 @@ class GooglePlacesContainer extends Component {
   }
 
   render() {
+    const searchOptions = {
+      types: ['(cities)'],
+    };
     return (
       <GooglePlaces
         value={this.state.value}
         onChange={this.handleChange}
         onSelect={this.handleSelect}
+        searchOptions={searchOptions}
       />
     );
   }
