@@ -53,10 +53,21 @@ const Container = styled.div`
 `;
 
 const Temperature = styled.span`
+  position: relative;
   font-size: 82px;
   font-weight: 700;
   color: white;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+
+  &::after {
+    content: '°';
+    position: absolute;
+    top: 0;
+    right: -20px;
+    color: #fff;
+    font-weight: 300;
+    font-size: 4rem;
+  }
 `;
 
 const City = styled.span`
@@ -75,6 +86,23 @@ const Weather = styled.span`
   margin-bottom: auto;
 `;
 
+const Author = styled.div`
+  font-size: 14px;
+  padding: 3px 12px;
+  font-weight: 300;
+  color: #fff;
+
+  a {
+    color: #fff;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+`;
+
+const UNSPLASH_QUERY_PARAMS = '?utm_source=weather&utm_medium=referral';
+
 const WheatherCover = props => (
   <ProgressiveImage
     src={props.imageUrl}
@@ -86,11 +114,14 @@ const WheatherCover = props => (
           <GooglePlacesContainer onAddressChange={props.getWeatherAndImage} />
           <City>{`${props.city}, ${props.country}`}</City>
           <Temperature>
-            {props.weekWeather ? Math.floor(props.weekWeather[0].temperature.day) : null}°
+            {props.weekWeather ? Math.floor(props.weekWeather[0].temperature.day) : null}
           </Temperature>
           <Weather>
             {props.weekWeather && props.weekWeather[0].description}
           </Weather>
+          <Author>
+            Photo by <a href={props.userUrl + UNSPLASH_QUERY_PARAMS} target="_blank">{props.userName}</a> on <a href={`https://unsplash.com/${UNSPLASH_QUERY_PARAMS}`}>Unsplash</a>
+          </Author>
         </Container>
       </Cover>
     )}
@@ -104,6 +135,8 @@ WheatherCover.propTypes = {
   country: PropTypes.string.isRequired,
   weekWeather: PropTypes.arrayOf(PropTypes.object),
   getWeatherAndImage: PropTypes.func.isRequired,
+  userUrl: PropTypes.string.isRequired,
+  userName: PropTypes.string.isRequired,
 };
 
 WheatherCover.defaultProps = {
