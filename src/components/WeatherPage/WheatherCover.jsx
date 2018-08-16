@@ -111,7 +111,7 @@ const WheatherCover = props => (
     {(src, loading) => (
       <Cover url={src} loading={loading}>
         <Container>
-          <GooglePlacesContainer onAddressChange={props.getWeatherAndImage} />
+          <GooglePlacesContainer onAddressChange={props.setWeatherAndImage} setLocation={props.setLocation} />
           <City>{`${props.city}, ${props.country}`}</City>
           <Temperature>
             {props.weekWeather ? Math.floor(props.weekWeather[0].temperature.day) : null}
@@ -134,7 +134,8 @@ WheatherCover.propTypes = {
   city: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
   weekWeather: PropTypes.arrayOf(PropTypes.object),
-  getWeatherAndImage: PropTypes.func.isRequired,
+  setWeatherAndImage: PropTypes.func.isRequired,
+  setLocation: PropTypes.func.isRequired,
   userUrl: PropTypes.string.isRequired,
   userName: PropTypes.string.isRequired,
 };

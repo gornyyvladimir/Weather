@@ -1,4 +1,4 @@
-import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY } from '../constants/constants';
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY, DEFAULT_COUNTRY } from '../constants/constants';
 
 describe('GooglePlacesContainer', () => {
   const expectedGeocodeResults = [{ place_id: 'ChIJmc2sfCutXkERZYyttbl3y38' }];
@@ -53,15 +53,20 @@ describe('GooglePlacesContainer', () => {
 
   test('handleSelect', async () => {
     // arrange
-    const expectedAddress = DEFAULT_CITY;
+    const expectedAddress = `${DEFAULT_CITY}, ${DEFAULT_COUNTRY}`;
+    const expectedCity = DEFAULT_CITY;
+    const expectedCountry = DEFAULT_COUNTRY;
     const mockOnAddressChange = jest.fn();
+    const mockSetLocation = jest.fn();
     const expectedProps = {
       onAddressChange: mockOnAddressChange,
+      setLocation: mockSetLocation,
     };
     const googlePlacesContainer = new GooglePlacesContainer(expectedProps);
     // act
     await googlePlacesContainer.handleSelect(expectedAddress);
     // assert
     expect(googlePlacesContainer.props.onAddressChange).toBeCalledWith(expectedLat, expectedLng);
+    expect(googlePlacesContainer.props.setLocation).toBeCalledWith(expectedCity, expectedCountry);
   });
 });

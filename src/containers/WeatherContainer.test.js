@@ -157,4 +157,25 @@ describe('WeatherContainer', () => {
     // assert
     expect(weatherContainer.state).toEqual(expectedState);
   });
+
+  test('setLocation', () => {
+    // arrange
+    const expectedCity = 'Moscow';
+    const expectedCountry = 'Russia';
+    const expectedState = {
+      city: expectedCity,
+      country: expectedCountry,
+    };
+    function fakeSetState(newState) {
+      this.state = newState;
+    }
+    const WeatherContainer = require('./WeatherContainer').default;
+    const weatherContainer = new WeatherContainer();
+    weatherContainer.state = {};
+    weatherContainer.setState = fakeSetState.bind(weatherContainer);
+    // act
+    weatherContainer.setLocation(expectedCity, expectedCountry);
+    // assert
+    expect(weatherContainer.state).toEqual(expectedState);
+  });
 });

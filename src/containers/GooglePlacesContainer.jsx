@@ -16,6 +16,9 @@ class GooglePlacesContainer extends Component {
     const results = await geocodeByAddress(address);
     const { lat, lng } = await getLatLng(results[0]);
     this.props.onAddressChange(lat, lng);
+    const addressArr = address.split(', ');
+    this.props.setLocation(addressArr[0], addressArr[addressArr.length - 1]);
+    console.log(address);
   }
 
   render() {
@@ -35,6 +38,7 @@ class GooglePlacesContainer extends Component {
 
 GooglePlacesContainer.propTypes = {
   onAddressChange: PropTypes.func.isRequired,
+  setLocation: PropTypes.func.isRequired,
 };
 
 export default GooglePlacesContainer;

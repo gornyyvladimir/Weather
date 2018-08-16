@@ -79,6 +79,13 @@ class WeatherContainer extends Component {
     }
   }
 
+  setLocation = (city, country) => {
+    this.setState({
+      city,
+      country,
+    });
+  }
+
   handleChange = (e) => {
     this.setState({
       inputValue: e.target.value,
@@ -114,7 +121,8 @@ class WeatherContainer extends Component {
                 onChange={this.handleChange}
                 onClick={this.handleClick}
                 onClose={this.handleClose}
-                getWeatherAndImage={this.setWeatherAndImage}
+                setWeatherAndImage={this.setWeatherAndImage}
+                setLocation={this.setLocation}
               />
             </Shadow>
           </Container>
