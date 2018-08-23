@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   margin-top: 16px;
   width: 100%;
-  padding: 0px 24px;
+  padding: 0 24px;
   box-sizing: border-box;
 `;
 
@@ -21,7 +21,7 @@ const Input = styled.input`
   border-color: white;
   transition: border-color 0.5s ease-in-out;
   box-sizing: border-box;
-  
+
   &::placeholder {
     color: white;
     opacity: 0.5;
