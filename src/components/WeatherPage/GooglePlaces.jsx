@@ -32,6 +32,20 @@ const Input = styled.input`
   }
 `;
 
+const SuggestionsWrapper = styled.div`
+  background: white;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, .5);
+`;
+
+const SuggestionItem = styled.div`
+  padding: 10px 15px;
+  cursor: pointer;
+  
+  &:hover {
+    background: #ccc;
+  }
+`;
+
 const GooglePlaces = ({
   value, onChange, onSelect, searchOptions,
 }) => (
@@ -50,17 +64,17 @@ const GooglePlaces = ({
             placeholder: 'Search Places ...',
           })}
         />
-        <div>
-          {loading && <div>Loading...</div>}
+        <SuggestionsWrapper>
+          {loading && <SuggestionItem>Loading...</SuggestionItem>}
           {suggestions.map(suggestion => (
-            <div
+            <SuggestionItem
               {...getSuggestionItemProps(suggestion)}
             >
               <span>{suggestion.description}</span>
-            </div>
+            </SuggestionItem>
               ))
             }
-        </div>
+        </SuggestionsWrapper>
       </Wrapper>
     )}
   </PlacesAutocomplete>
