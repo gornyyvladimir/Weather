@@ -68,6 +68,17 @@ const Temperature = styled.span`
     font-weight: 300;
     font-size: 4rem;
   }
+
+  &:empty::after {
+    display: none;
+  }
+
+  &:empty::before {
+    display: block;
+    content: '-';
+    font-weight: 100;
+    margin-top: -15px;
+  }
 `;
 
 const City = styled.span`

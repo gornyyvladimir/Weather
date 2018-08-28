@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
-import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_COUNTRY, DEFAULT_CITY } from '../constants/constants';
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_COUNTRY, DEFAULT_CITY, DEFAULT_USERNAME, DEFAULT_UNSPLASH_URL } from '../constants/constants';
 import getWeather from '../adapters/weatherAdapter';
 import getImage from '../adapters/imageAdapter';
 import WeatherPage from '../components/WeatherPage';
 import ProgressiveBackground from '../components/ProgressiveBackground';
+import image from './default.jpeg';
 
 const ErrorMessage = styled.p`
   background: #e84118;
@@ -56,6 +57,9 @@ class WeatherContainer extends Component {
     errorMessage: '',
     hasError: false,
     itemId: null,
+    imageUrl: image,
+    userName: DEFAULT_USERNAME,
+    userUrl: DEFAULT_UNSPLASH_URL,
   };
 
   componentDidMount() {

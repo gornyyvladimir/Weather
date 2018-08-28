@@ -18,7 +18,6 @@ class GooglePlacesContainer extends Component {
     this.props.onAddressChange(lat, lng);
     const addressArr = address.split(', ');
     this.props.setLocation(addressArr[0], addressArr[addressArr.length - 1]);
-    console.log(address);
   }
 
   render() {

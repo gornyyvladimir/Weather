@@ -1,4 +1,5 @@
-import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY, DEFAULT_COUNTRY } from '../constants/constants';
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY, DEFAULT_COUNTRY, DEFAULT_USERNAME, DEFAULT_UNSPLASH_URL } from '../constants/constants';
+import expectedImage from './default.jpeg';
 
 /* eslint-disable max-len */
 describe('WeatherContainer', () => {
@@ -16,6 +17,9 @@ describe('WeatherContainer', () => {
       errorMessage: '',
       hasError: false,
       itemId: null,
+      imageUrl: expectedImage,
+      userName: DEFAULT_USERNAME,
+      userUrl: DEFAULT_UNSPLASH_URL,
     };
     const WeatherContainer = require('./WeatherContainer').default;
     // act
