@@ -59,7 +59,7 @@ const Temperature = styled.span`
   color: white;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 
-  &::after {
+  &:not(:empty)::after {
     content: '°';
     position: absolute;
     top: 0;
@@ -67,17 +67,6 @@ const Temperature = styled.span`
     color: #fff;
     font-weight: 300;
     font-size: 4rem;
-  }
-
-  &:empty::after {
-    display: none;
-  }
-
-  &:empty::before {
-    display: block;
-    content: '-';
-    font-weight: 100;
-    margin-top: -15px;
   }
 `;
 
@@ -123,7 +112,9 @@ const WheatherCover = props => (
       <Cover url={src} loading={loading}>
         <Container>
           <GooglePlacesContainer onAddressChange={props.setWeatherAndImage} setLocation={props.setLocation} />
-          <City>{`${props.city}, ${props.country}`}</City>
+          {
+            !props.hasError && <City>{`${props.city}, ${props.country}`}</City>
+          }
           <Temperature>
             {props.weekWeather ? Math.floor(props.weekWeather[0].temperature.day) : null}
           </Temperature>
@@ -149,6 +140,7 @@ WheatherCover.propTypes = {
   setLocation: PropTypes.func.isRequired,
   userUrl: PropTypes.string.isRequired,
   userName: PropTypes.string.isRequired,
+  hasError: PropTypes.bool.isRequired,
 };
 
 WheatherCover.defaultProps = {
