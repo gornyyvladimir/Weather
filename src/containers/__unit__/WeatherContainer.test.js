@@ -1,5 +1,5 @@
-import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY, DEFAULT_COUNTRY, DEFAULT_USERNAME, DEFAULT_UNSPLASH_URL } from '../constants/constants';
-import expectedImage from './default.jpeg';
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY, DEFAULT_COUNTRY, DEFAULT_USERNAME, DEFAULT_UNSPLASH_URL } from '../../constants/constants';
+import expectedImage from '../default.jpeg';
 
 /* eslint-disable max-len */
 describe('WeatherContainer', () => {
@@ -21,7 +21,7 @@ describe('WeatherContainer', () => {
       userName: DEFAULT_USERNAME,
       userUrl: DEFAULT_UNSPLASH_URL,
     };
-    const WeatherContainer = require('./WeatherContainer').default;
+    const WeatherContainer = require('../WeatherContainer').default;
     // act
     const weatherContainer = new WeatherContainer(expectedProps);
     // assert
@@ -33,7 +33,7 @@ describe('WeatherContainer', () => {
     const expectedLat = DEFAULT_LATITUDE;
     const expectedLng = DEFAULT_LONGITUDE;
 
-    const WeatherContainer = require('./WeatherContainer').default;
+    const WeatherContainer = require('../WeatherContainer').default;
     const weatherContainer = new WeatherContainer();
 
     const mockSetWeatherAndImage = jest.fn();
@@ -111,9 +111,9 @@ describe('WeatherContainer', () => {
       this.state = newState;
     }
 
-    jest.mock('../adapters/weatherAdapter', () => mockGetWeather);
-    jest.mock('../adapters/imageAdapter', () => mockGetImage);
-    const WeatherContainer = require('./WeatherContainer').default;
+    jest.mock('../../adapters/weatherAdapter', () => mockGetWeather);
+    jest.mock('../../adapters/imageAdapter', () => mockGetImage);
+    const WeatherContainer = require('../WeatherContainer').default;
     const weatherContainer = new WeatherContainer();
     weatherContainer.state = {};
     weatherContainer.setState = fakeSetState.bind(weatherContainer);
@@ -139,9 +139,9 @@ describe('WeatherContainer', () => {
       reject(expectedError);
     }));
 
-    jest.mock('../adapters/weatherAdapter', () => mockGetWeather);
+    jest.mock('../../adapters/weatherAdapter', () => mockGetWeather);
 
-    const expectedErrorMessage = require('./WeatherContainer').ERROR_MESSAGE;
+    const expectedErrorMessage = require('../WeatherContainer').ERROR_MESSAGE;
 
     const expectedState = {
       hasError: true,
@@ -151,7 +151,7 @@ describe('WeatherContainer', () => {
     function fakeSetState(newState) {
       this.state = newState;
     }
-    const WeatherContainer = require('./WeatherContainer').default;
+    const WeatherContainer = require('../WeatherContainer').default;
     const weatherContainer = new WeatherContainer();
     weatherContainer.state = {};
     weatherContainer.setState = fakeSetState.bind(weatherContainer);
@@ -173,7 +173,7 @@ describe('WeatherContainer', () => {
     function fakeSetState(newState) {
       this.state = newState;
     }
-    const WeatherContainer = require('./WeatherContainer').default;
+    const WeatherContainer = require('../WeatherContainer').default;
     const weatherContainer = new WeatherContainer();
     weatherContainer.state = {};
     weatherContainer.setState = fakeSetState.bind(weatherContainer);

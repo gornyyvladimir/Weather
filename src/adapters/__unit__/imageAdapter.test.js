@@ -92,8 +92,8 @@ describe('imageAdapter', () => {
     };
 
     const mockFetchImage = jest.fn(() => new Promise((resolve) => { resolve(expectedRawImageData); }));
-    jest.mock('../services/imageApi', () => mockFetchImage);
-    const imageAdapter = require('./imageAdapter').default;
+    jest.mock('../../services/imageApi', () => mockFetchImage);
+    const imageAdapter = require('../imageAdapter').default;
     // act
     const actualImageData = await imageAdapter(expectedWeatherDescription);
     // assert

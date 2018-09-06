@@ -1,4 +1,4 @@
-import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE } from '../constants/constants';
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE } from '../../constants/constants';
 
 describe('weatherAdapter', () => {
   test('default', async () => {
@@ -58,8 +58,8 @@ describe('weatherAdapter', () => {
     ];
 
     const mockFetchWeather = jest.fn(() => new Promise((resolve) => { resolve(expectedRawWeather); }));
-    jest.mock('../services/weatherApi', () => mockFetchWeather);
-    const weatherAdapter = require('./weatherAdapter').default;
+    jest.mock('../../services/weatherApi', () => mockFetchWeather);
+    const weatherAdapter = require('../weatherAdapter').default;
     const expectedLat = DEFAULT_LATITUDE;
     const expectedLng = DEFAULT_LONGITUDE;
     // act

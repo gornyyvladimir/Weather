@@ -1,4 +1,4 @@
-import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY, DEFAULT_COUNTRY } from '../constants/constants';
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY, DEFAULT_COUNTRY } from '../../constants/constants';
 
 describe('GooglePlacesContainer', () => {
   const expectedGeocodeResults = [{ place_id: 'ChIJmc2sfCutXkERZYyttbl3y38' }];
@@ -21,7 +21,7 @@ describe('GooglePlacesContainer', () => {
 
   jest.mock('react-places-autocomplete', () => mockGooglePlaces);
 
-  const GooglePlacesContainer = require('./GooglePlacesContainer').default;
+  const GooglePlacesContainer = require('../GooglePlacesContainer').default;
 
   test('handleChange', () => {
     // arrange
