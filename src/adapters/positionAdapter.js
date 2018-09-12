@@ -1,4 +1,4 @@
 export default () =>
-  new Promise((success) => {
-    navigator.geolocation.getCurrentPosition(success);
+  new Promise((success, error) => {
+    navigator.geolocation.getCurrentPosition(success, error);
   });
