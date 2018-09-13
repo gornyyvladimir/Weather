@@ -1,5 +1,6 @@
 import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY, DEFAULT_COUNTRY, DEFAULT_USERNAME, DEFAULT_UNSPLASH_URL } from '../../constants/constants';
 import expectedImage from '../default.jpeg';
+import positionAdapter from '../../adapters/positionAdapter';
 
 /* eslint-disable max-len */
 describe('WeatherContainer', () => {
@@ -28,22 +29,51 @@ describe('WeatherContainer', () => {
     expect(weatherContainer.state).toEqual(expectedState);
   });
 
-  test('componentDidMount', () => {
+  test('componentDidMount Happy Path', async () => {
     // arrange
     const expectedLat = DEFAULT_LATITUDE;
     const expectedLng = DEFAULT_LONGITUDE;
+    const expectedState = {
+      latitude: 55.793172899999995,
+      longitude: 49.125101799999996,
+    };
+    const expectedPosition = {
+      coords: {
+        accuracy: 58,
+        altitude: null,
+        altitudeAccuracy: null,
+        heading: null,
+        latitude: 55.793172899999995,
+        longitude: 49.125101799999996,
+        speed: null,
+      },
+      timestamp: 1536046415947,
+    };
+
+    function fakeSetState(newState) {
+      this.state = newState;
+    }
+
+    const mockPositionAdapter = jest.fn(() => new Promise((resolve) => {
+      resolve(expectedPosition);
+    }));
+    jest.mock('../../adapters/positionAdapter', () => mockPositionAdapter);
+    const mockSetWeatherAndImage = jest.fn();
 
     const WeatherContainer = require('../WeatherContainer').default;
     const weatherContainer = new WeatherContainer();
-
-    const mockSetWeatherAndImage = jest.fn();
     weatherContainer.setWeatherAndImage = mockSetWeatherAndImage;
 
+    weatherContainer.state = {};
+    weatherContainer.setState = fakeSetState.bind(weatherContainer);
+
     // act
-    weatherContainer.componentDidMount();
+    await weatherContainer.componentDidMount();
 
     // assert
     expect(weatherContainer.setWeatherAndImage).toBeCalledWith(expectedLat, expectedLng);
+    expect(mockPositionAdapter).toBeCalled();
+    expect(weatherContainer.state).toEqual(expectedState);
   });
 
   test('setWeatherAndImage - Happy path', async () => {

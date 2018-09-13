@@ -7,6 +7,7 @@ import getImage from '../adapters/imageAdapter';
 import WeatherPage from '../components/WeatherPage';
 import ProgressiveBackground from '../components/ProgressiveBackground';
 import image from './default.jpeg';
+import getPosition from '../adapters/positionAdapter';
 
 const ErrorMessage = styled.p`
   background: #e84118;
@@ -62,8 +63,13 @@ class WeatherContainer extends Component {
     userUrl: DEFAULT_UNSPLASH_URL,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setWeatherAndImage(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
+    const position = await getPosition();
+    this.setState({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    });
   }
 
   setWeatherAndImage = async (lat, lon) => {
