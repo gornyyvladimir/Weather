@@ -1,6 +1,5 @@
 import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY, DEFAULT_COUNTRY, DEFAULT_USERNAME, DEFAULT_UNSPLASH_URL } from '../../constants/constants';
 import expectedImage from '../default.jpeg';
-import positionAdapter from '../../adapters/positionAdapter';
 
 /* eslint-disable max-len */
 describe('WeatherContainer', () => {
