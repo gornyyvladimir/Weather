@@ -65,11 +65,18 @@ class WeatherContainer extends Component {
 
   async componentDidMount() {
     this.setWeatherAndImage(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
-    const position = await getPosition();
-    this.setState({
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-    });
+    try {
+      const position = await getPosition();
+      this.setState({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    } catch (error) {
+      this.setState({
+        hasError: true,
+        errorMessage: error.message,
+      });
+    }
   }
 
   setWeatherAndImage = async (lat, lon) => {
