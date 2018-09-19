@@ -72,47 +72,7 @@ describe('WeatherContainer', () => {
     // assert
     expect(weatherContainer.setWeatherAndImage).toBeCalledWith(expectedLat, expectedLng);
     expect(mockPositionAdapter).toBeCalled();
-    expect(weatherContainer.state).toEqual(expectedState);
-  });
-
-  test('componentDidMount getPosition error', async () => {
-    // arrange
-    const expectedLat = DEFAULT_LATITUDE;
-    const expectedLng = DEFAULT_LONGITUDE;
-
-    const expectedError = {
-      code: 1,
-      message: 'User denied Geolocation',
-    };
-
-    function fakeSetState(newState) {
-      this.state = newState;
-    }
-
-    const mockPositionAdapter = jest.fn(() => new Promise((resolve, reject) => {
-      reject(expectedError);
-    }));
-    jest.mock('../../adapters/positionAdapter', () => mockPositionAdapter);
-    const mockSetWeatherAndImage = jest.fn();
-
-    const WeatherContainer = require('../WeatherContainer').default;
-
-    const weatherContainer = new WeatherContainer();
-    weatherContainer.setWeatherAndImage = mockSetWeatherAndImage;
-
-    const expectedState = {
-      hasError: true,
-      errorMessage: expectedError.message,
-    };
-
-    weatherContainer.state = {};
-    weatherContainer.setState = fakeSetState.bind(weatherContainer);
-
-    // act
-    await weatherContainer.componentDidMount();
-    // assert
-    expect(weatherContainer.setWeatherAndImage).toBeCalledWith(expectedLat, expectedLng);
-    expect(mockPositionAdapter).toBeCalled();
+    expect(weatherContainer.setWeatherAndImage).toBeCalledWith(expectedPosition.coords.latitude, expectedPosition.coords.longitude);
     expect(weatherContainer.state).toEqual(expectedState);
   });
 

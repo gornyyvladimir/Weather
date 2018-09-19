@@ -67,15 +67,13 @@ class WeatherContainer extends Component {
     this.setWeatherAndImage(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
     try {
       const position = await getPosition();
+      this.setWeatherAndImage(position.coords.latitude, position.coords.longitude);
       this.setState({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
       });
     } catch (error) {
-      this.setState({
-        hasError: true,
-        errorMessage: error.message,
-      });
+      console.log(error);
     }
   }
 
