@@ -2,6 +2,10 @@ describe('Geocoder', () => {
   class Geocoder {}
   global.google = { maps: { Geocoder } };
 
+  beforeEach(() => {
+    jest.resetModules();
+  });
+
   test('getInstance', () => {
     // Arrange
     const geocoder = require('../Geocoder').default;
