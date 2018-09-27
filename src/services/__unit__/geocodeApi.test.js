@@ -8,6 +8,7 @@ describe('geocodeApi', () => {
     const expectedCity = DEFAULT_CITY;
     const expectedCountry = DEFAULT_COUNTRY;
     const expectedAddress = `${expectedCity}, ${expectedCountry}`;
+    const expectedGeocoderRequest = { location: { lat: expectedLat, lng: expectedLng } };
     const expectedGeocodeObject = [
       {
         address_components: [
@@ -65,14 +66,15 @@ describe('geocodeApi', () => {
       },
     ];
     const mockGeocoder = {
-      geocode: jest.fn(() => expectedGeocodeObject),
+      geocode: jest.fn((geocoderRequest, callback) => { callback(expectedGeocodeObject); }),
     };
-    const mockGetGeocoder = jest.fn(() => mockGeocoder);
+    const mockGeocoderFactory = { instance: mockGeocoder };
+    jest.mock('../../factories/Geocoder', () => mockGeocoderFactory);
     const geocodeApi = require('../geocodeApi');
-    geocodeApi.getGeocoder = mockGetGeocoder;
     // act
     const actualAddress = await geocodeApi.default(expectedLat, expectedLng);
     // assert
+    expect(mockGeocoder.geocode).toHaveBeenCalledWith(expectedGeocoderRequest, expect.any(Function));
     expect(actualAddress).toEqual(expectedAddress);
   });
 });
