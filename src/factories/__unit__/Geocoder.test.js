@@ -1,30 +1,24 @@
 describe('Geocoder', () => {
-  let Geocoder;
-  let expectedInstance;
-  beforeEach(() => {
-    jest.resetModules();
-    Geocoder = require('../Geocoder').default;
-    expectedInstance = { id: 'old' };
-    Geocoder.getGeocoder = jest.fn(() => expectedInstance);
+  class Geocoder {}
+  global.google = { maps: { Geocoder } };
+
+  test('getInstance', () => {
+    // Arrange
+    const geocoder = require('../Geocoder').default;
+    // Act
+    const actualInstance = geocoder.instance;
+    // Assert
+    expect(actualInstance).toBeInstanceOf(Geocoder);
   });
 
-  test('instance', () => {
+  test('getInstance single instance', () => {
     // Arrange
-    // Act
-    const actualInstance = Geocoder.instance;
-    // Assert
-    expect(actualInstance).toEqual(expectedInstance);
-  });
-
-  test('single instance', () => {
-    // Arrange
-    const expectedNewInstance = { id: 'new' };
-    Geocoder = require('../Geocoder').default;
-    Geocoder.getGeocoder = jest.fn(() => expectedNewInstance);
+    const expectedInstance = require('../Geocoder').default.instance;
+    const geocoder = require('../Geocoder').default;
 
     // Act
-    const actualInstance = Geocoder.default.instance;
+    const actualInstance = geocoder.instance;
     // Assert
-    expect(actualInstance).toEqual(expectedInstance);
+    expect(actualInstance).toBe(expectedInstance);
   });
 });
