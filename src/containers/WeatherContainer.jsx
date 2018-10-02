@@ -8,6 +8,7 @@ import WeatherPage from '../components/WeatherPage';
 import ProgressiveBackground from '../components/ProgressiveBackground';
 import image from './default.jpeg';
 import getPosition from '../adapters/positionAdapter';
+import geocodeAdapter from '../adapters/geocodeAdapter';
 
 const ErrorMessage = styled.p`
   background: #e84118;
@@ -68,9 +69,11 @@ class WeatherContainer extends Component {
     try {
       const position = await getPosition();
       this.setWeatherAndImage(position.coords.latitude, position.coords.longitude);
+      const address = await geocodeAdapter(position.coords.latitude, position.coords.longitude);
       this.setState({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
+        ...address,
       });
     } catch (error) {
       console.log(error);

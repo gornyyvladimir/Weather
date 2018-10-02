@@ -1,13 +1,10 @@
 import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY, DEFAULT_COUNTRY } from '../../constants/constants';
 
-describe('geocodeApi', () => {
+describe('geocodeAdapter', () => {
   test('default', async () => {
-    // arrange
+    // Arrange
     const expectedLat = DEFAULT_LATITUDE;
     const expectedLng = DEFAULT_LONGITUDE;
-    const expectedCity = DEFAULT_CITY;
-    const expectedCountry = DEFAULT_COUNTRY;
-    const expectedGeocoderRequest = { location: { lat: expectedLat, lng: expectedLng } };
     const expectedGeocodeObject = [
       {
         address_components: [
@@ -18,7 +15,7 @@ describe('geocodeApi', () => {
             types: ['route'],
           },
           {
-            long_name: expectedCity,
+            long_name: DEFAULT_CITY,
             short_name: 'Казань',
             types: ['locality', 'political'],
           },
@@ -38,7 +35,7 @@ describe('geocodeApi', () => {
             types: ['administrative_area_level_1', 'political'],
           },
           {
-            long_name: expectedCountry,
+            long_name: DEFAULT_COUNTRY,
             short_name: 'RU',
             types: ['country', 'political'],
           },
@@ -64,16 +61,17 @@ describe('geocodeApi', () => {
         types: ['street_address'],
       },
     ];
-    const mockGeocoder = {
-      geocode: jest.fn((geocoderRequest, callback) => { callback(expectedGeocodeObject); }),
-    };
-    const mockGeocoderFactory = { instance: mockGeocoder };
-    jest.mock('../../factories/Geocoder', () => mockGeocoderFactory);
-    const geocodeApi = require('../geocodeApi');
-    // act
-    const actualGeocodeObject = await geocodeApi.default(expectedLat, expectedLng);
-    // assert
-    expect(mockGeocoder.geocode).toHaveBeenCalledWith(expectedGeocoderRequest, expect.any(Function));
-    expect(actualGeocodeObject).toEqual(expectedGeocodeObject);
+    const expectedAddress = { city: DEFAULT_CITY, country: DEFAULT_COUNTRY };
+
+    const mockGeocodeApi = jest.fn(() => new Promise((resolve) => { resolve(expectedGeocodeObject); }));
+    jest.mock('../../services/geocodeApi', () => mockGeocodeApi);
+    const geocodeAdapter = require('../geocodeAdapter').default;
+
+    // Act
+    const actualAddress = await geocodeAdapter(expectedLat, expectedLng);
+
+    // Assert
+    expect(actualAddress).toEqual(expectedAddress);
+    expect(mockGeocodeApi).toBeCalledWith(expectedLat, expectedLng);
   });
 });
