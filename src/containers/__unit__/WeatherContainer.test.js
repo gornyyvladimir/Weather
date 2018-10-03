@@ -1,22 +1,12 @@
 import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_CITY, DEFAULT_COUNTRY, DEFAULT_USERNAME, DEFAULT_UNSPLASH_URL } from '../../constants/constants';
 import expectedImage from '../default.jpeg';
 
-/* eslint-disable max-len */
 describe('WeatherContainer', () => {
   const expectedCity = DEFAULT_CITY;
   const expectedCountry = DEFAULT_COUNTRY;
-  const expectedAddress = {
-    city: expectedCity,
-    country: expectedCountry,
-  };
-  const mockGeocodeAdapter = jest.fn(() => new Promise((resolve) => {
-    resolve(expectedAddress);
-  }));
 
   beforeEach(() => {
     jest.resetModules();
-
-    jest.mock('../../adapters/geocodeAdapter', () => mockGeocodeAdapter);
   });
 
   test('constructor', () => {
@@ -44,12 +34,18 @@ describe('WeatherContainer', () => {
     // arrange
     const expectedLat = DEFAULT_LATITUDE;
     const expectedLng = DEFAULT_LONGITUDE;
+    const expectedAddress = {
+      city: expectedCity,
+      country: expectedCountry,
+    };
+
     const expectedState = {
       latitude: 55.793172899999995,
       longitude: 49.125101799999996,
       city: expectedCity,
       country: expectedCountry,
     };
+
     const expectedPosition = {
       coords: {
         accuracy: 58,
@@ -62,11 +58,14 @@ describe('WeatherContainer', () => {
       },
       timestamp: 1536046415947,
     };
-
     function fakeSetState(newState) {
       this.state = newState;
     }
+    const mockGeocodeAdapter = jest.fn(() => new Promise((resolve) => {
+      resolve(expectedAddress);
+    }));
 
+    jest.mock('../../adapters/geocodeAdapter', () => mockGeocodeAdapter);
     const mockPositionAdapter = jest.fn(() => new Promise((resolve) => {
       resolve(expectedPosition);
     }));

@@ -1,7 +1,7 @@
-import Geocoder from '../factories/Geocoder';
+import { getInstance } from '../factories/Geocoder';
 
 export default (lat, lng) => new Promise((resolve) => {
-  Geocoder.instance.geocode({ location: { lat, lng } }, (geocodeObject) => {
+  getInstance().geocode({ location: { lat, lng } }, (geocodeObject) => {
     resolve(geocodeObject);
   });
 });

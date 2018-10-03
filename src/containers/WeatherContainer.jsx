@@ -70,6 +70,7 @@ class WeatherContainer extends Component {
       const position = await getPosition();
       this.setWeatherAndImage(position.coords.latitude, position.coords.longitude);
       const address = await geocodeAdapter(position.coords.latitude, position.coords.longitude);
+      // eslint-disable-next-line
       this.setState({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,

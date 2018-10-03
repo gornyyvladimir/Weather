@@ -8,20 +8,20 @@ describe('Geocoder', () => {
 
   test('getInstance', () => {
     // Arrange
-    const geocoder = require('../Geocoder').default;
+    const { getInstance } = require('../Geocoder');
     // Act
-    const actualInstance = geocoder.instance;
+    const actualInstance = getInstance();
     // Assert
     expect(actualInstance).toBeInstanceOf(Geocoder);
   });
 
   test('getInstance single instance', () => {
     // Arrange
-    const expectedInstance = require('../Geocoder').default.instance;
-    const geocoder = require('../Geocoder').default;
+    const { getInstance } = require('../Geocoder');
+    const expectedInstance = getInstance();
 
     // Act
-    const actualInstance = geocoder.instance;
+    const actualInstance = getInstance();
     // Assert
     expect(actualInstance).toBe(expectedInstance);
   });
