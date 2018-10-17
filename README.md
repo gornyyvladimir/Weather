@@ -38,4 +38,10 @@ yarn test
 
 ### Deployment
 
-We use Travis CI for deployment. Deployment triggers on any commit on branch "production"
+All tagged commits trigger deploy to GitHub pages
+
+Use this command to update version 
+
+```bash
+yarn version
+```

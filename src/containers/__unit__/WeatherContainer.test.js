@@ -207,6 +207,76 @@ describe('WeatherContainer', () => {
     expect(weatherContainer.state).toEqual(expectedState);
   });
 
+  test('setWeatherAndImage getImage fails', async () => {
+    // Arrange
+    const expectedLat = DEFAULT_LATITUDE;
+    const expectedLng = DEFAULT_LONGITUDE;
+
+
+    const expectedWeatherDescription = 'Sunny';
+    const expectedIcon = '01d';
+    const expectedTemperature = {
+      day: 29.94,
+      min: 20.22,
+      max: 30.4,
+      night: 20.22,
+      eve: 29.37,
+      morn: 20.91,
+    };
+
+    const expectedDateTime = 1533110400;
+    const expectedPressure = 1020.35;
+    const expectedHumidity = 44;
+    const expectedWindSpeed = 3.01;
+    const expectedWindDirection = 322;
+    const expectedClouds = 0;
+
+    const expectedWeekWeather = [
+      {
+        datetime: expectedDateTime,
+        temperature: expectedTemperature,
+        pressure: expectedPressure,
+        humidity: expectedHumidity,
+        description: expectedWeatherDescription,
+        icon: expectedIcon,
+        speed: expectedWindSpeed,
+        direction: expectedWindDirection,
+        clouds: expectedClouds,
+      },
+    ];
+
+    const expectedError = new Error('Failed to load resource: the server responded with a status of 403 ()');
+
+    const mockGetWeather = jest.fn(() => new Promise((resolve) => {
+      resolve(expectedWeekWeather);
+    }));
+
+    const mockGetImage = jest.fn(() => new Promise((resolve, reject) => {
+      reject(expectedError);
+    }));
+
+    jest.mock('../../adapters/weatherAdapter', () => mockGetWeather);
+    jest.mock('../../adapters/imageAdapter', () => mockGetImage);
+
+
+    const expectedState = {
+      weekWeather: expectedWeekWeather,
+    };
+
+    function fakeSetState(newState) {
+      this.state = newState;
+    }
+    const WeatherContainer = require('../WeatherContainer').default;
+    const weatherContainer = new WeatherContainer();
+    weatherContainer.state = {};
+    weatherContainer.setState = fakeSetState.bind(weatherContainer);
+
+    // Act
+    await weatherContainer.setWeatherAndImage(expectedLat, expectedLng);
+    // Assert
+    expect(weatherContainer.state).toEqual(expectedState);
+  });
+
   test('setLocation', () => {
     // arrange
     const expectedState = {
