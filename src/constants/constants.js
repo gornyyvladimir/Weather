@@ -4,3 +4,4 @@ export const DEFAULT_CITY = 'Kazan';
 export const DEFAULT_COUNTRY = 'Russia';
 export const DEFAULT_USERNAME = 'Username';
 export const DEFAULT_UNSPLASH_URL = 'https://unsplash.com';
+export const DEFAULT_NO_POSITION_ERROR = 'We can\'t get your position';
