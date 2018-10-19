@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import breakpoint from 'styled-components-breakpoint';
-import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_COUNTRY, DEFAULT_CITY, DEFAULT_USERNAME, DEFAULT_UNSPLASH_URL } from '../constants/constants';
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_COUNTRY, DEFAULT_CITY, DEFAULT_USERNAME, DEFAULT_UNSPLASH_URL, DEFAULT_NO_POSITION_ERROR } from '../constants/constants';
 import getWeather from '../adapters/weatherAdapter';
 import getImage from '../adapters/imageAdapter';
 import WeatherPage from '../components/WeatherPage';
@@ -77,7 +77,9 @@ class WeatherContainer extends Component {
         ...address,
       });
     } catch (error) {
-      console.log(error);
+      this.setState({
+        errorMessage: DEFAULT_NO_POSITION_ERROR,
+      });
     }
   }
 

@@ -95,10 +95,6 @@ describe('WeatherContainer', () => {
     // arrange
     const expectedLat = DEFAULT_LATITUDE;
     const expectedLng = DEFAULT_LONGITUDE;
-    const expectedAddress = {
-      city: expectedCity,
-      country: expectedCountry,
-    };
 
     const expectedState = {
       errorMessage: DEFAULT_NO_POSITION_ERROR,
@@ -119,13 +115,9 @@ describe('WeatherContainer', () => {
     function fakeSetState(newState) {
       this.state = newState;
     }
-    const mockGeocodeAdapter = jest.fn(() => new Promise((resolve) => {
-      resolve(expectedAddress);
-    }));
 
-    jest.mock('../../adapters/geocodeAdapter', () => mockGeocodeAdapter);
-    const mockPositionAdapter = jest.fn(() => new Promise((resolve) => {
-      resolve(expectedPosition);
+    const mockPositionAdapter = jest.fn(() => new Promise((resolve, reject) => {
+      reject(expectedPosition);
     }));
     jest.mock('../../adapters/positionAdapter', () => mockPositionAdapter);
 
