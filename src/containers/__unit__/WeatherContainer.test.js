@@ -95,9 +95,9 @@ describe('WeatherContainer', () => {
     // arrange
     const expectedLat = DEFAULT_LATITUDE;
     const expectedLng = DEFAULT_LONGITUDE;
-
+    const expectedError = DEFAULT_NO_POSITION_ERROR;
     const expectedState = {
-      errorMessage: DEFAULT_NO_POSITION_ERROR,
+      errorMessage: expectedError,
     };
 
     const expectedPosition = {
@@ -117,7 +117,7 @@ describe('WeatherContainer', () => {
     }
 
     const mockPositionAdapter = jest.fn(() => new Promise((resolve, reject) => {
-      reject(expectedPosition);
+      reject(expectedError);
     }));
     jest.mock('../../adapters/positionAdapter', () => mockPositionAdapter);
 
@@ -143,13 +143,9 @@ describe('WeatherContainer', () => {
     // arrange
     const expectedLat = DEFAULT_LATITUDE;
     const expectedLng = DEFAULT_LONGITUDE;
-    const expectedAddress = {
-      city: expectedCity,
-      country: expectedCountry,
-    };
-
+    const expectedError = DEFAULT_NO_POSITION_ERROR;
     const expectedState = {
-      errorMessage: DEFAULT_NO_POSITION_ERROR,
+      errorMessage: expectedError,
     };
 
     const expectedPosition = {
@@ -168,10 +164,10 @@ describe('WeatherContainer', () => {
       this.state = newState;
     }
     const mockGeocodeAdapter = jest.fn(() => new Promise((resolve, reject) => {
-      reject(expectedAddress);
+      reject(expectedError);
     }));
-
     jest.mock('../../adapters/geocodeAdapter', () => mockGeocodeAdapter);
+
     const mockPositionAdapter = jest.fn(() => new Promise((resolve) => {
       resolve(expectedPosition);
     }));
