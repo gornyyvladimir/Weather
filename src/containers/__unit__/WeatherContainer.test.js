@@ -139,6 +139,63 @@ describe('WeatherContainer', () => {
     expect(weatherContainer.state).toEqual(expectedState);
   });
 
+  test('componentDidMount - fail geocodeAdapter', async () => {
+    // arrange
+    const expectedLat = DEFAULT_LATITUDE;
+    const expectedLng = DEFAULT_LONGITUDE;
+    const expectedAddress = {
+      city: expectedCity,
+      country: expectedCountry,
+    };
+
+    const expectedState = {
+      errorMessage: DEFAULT_NO_POSITION_ERROR,
+    };
+
+    const expectedPosition = {
+      coords: {
+        accuracy: 58,
+        altitude: null,
+        altitudeAccuracy: null,
+        heading: null,
+        latitude: 55.793172899999995,
+        longitude: 49.125101799999996,
+        speed: null,
+      },
+      timestamp: 1536046415947,
+    };
+    function fakeSetState(newState) {
+      this.state = newState;
+    }
+    const mockGeocodeAdapter = jest.fn(() => new Promise((resolve, reject) => {
+      reject(expectedAddress);
+    }));
+
+    jest.mock('../../adapters/geocodeAdapter', () => mockGeocodeAdapter);
+    const mockPositionAdapter = jest.fn(() => new Promise((resolve) => {
+      resolve(expectedPosition);
+    }));
+    jest.mock('../../adapters/positionAdapter', () => mockPositionAdapter);
+
+    const mockSetWeatherAndImage = jest.fn();
+
+    const WeatherContainer = require('../WeatherContainer').default;
+    const weatherContainer = new WeatherContainer();
+    weatherContainer.setWeatherAndImage = mockSetWeatherAndImage;
+
+    weatherContainer.state = {};
+    weatherContainer.setState = fakeSetState.bind(weatherContainer);
+
+    // act
+    await weatherContainer.componentDidMount();
+
+    // assert
+    expect(weatherContainer.setWeatherAndImage).toBeCalledWith(expectedLat, expectedLng);
+    expect(mockPositionAdapter).toBeCalled();
+    expect(mockGeocodeAdapter).toBeCalledWith(expectedPosition.coords.latitude, expectedPosition.coords.longitude);
+    expect(weatherContainer.state).toEqual(expectedState);
+  });
+
   test('setWeatherAndImage - Happy path', async () => {
     // arrange
     const expectedWeatherDescription = 'Sunny';
