@@ -60,6 +60,7 @@ class WeatherContainer extends Component {
     hasError: false,
     itemId: null,
     imageUrl: image,
+    prevImage: image,
     userName: DEFAULT_USERNAME,
     userUrl: DEFAULT_UNSPLASH_URL,
   };
@@ -106,7 +107,10 @@ class WeatherContainer extends Component {
         errorMessage: ERROR_MESSAGE,
       };
     } finally {
-      this.setState(state);
+      this.setState(prevState => ({
+        ...state,
+        prevImage: prevState.imageUrl,
+      }));
     }
   };
 

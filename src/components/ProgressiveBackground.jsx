@@ -5,31 +5,36 @@ import breakpoint from 'styled-components-breakpoint';
 import ProgressiveImage from 'react-progressive-image';
 
 // transparent image for fade effect
-const transparent = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48L3N2Zz4=';
+const transparent =
+  'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTAwIiBoZWlnaHQ9IjYwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48L3N2Zz4=';
 
-const Background = styled.div`
+const Background = styled.img`
   ${breakpoint('tablet')`
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    background-image: ${props => (props.url ? `url(${props.url})` : `url(${transparent})`)};
-    background-position: center center;
-    background-size: cover;
-    filter: blur(10px);
-    transition: background ease-in-out 1s;
-    transform: scale(1.1);
-    z-index: -1;
+    object-fit: cover;
     `}
 `;
 
+const BackgroundWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  filter: blur(10px);
+  transform: scale(1.1);
+`;
+
 const ProgressiveBackground = props => (
-  <ProgressiveImage
-    src={props.imageUrl}
-    placeholder={props.prevImage}
-  >
-    {src => <Background url={src} />}
+  <ProgressiveImage src={props.imageUrl} placeholder={props.prevImage}>
+    {src => (
+      <BackgroundWrapper>
+        <Background src={src} />
+      </BackgroundWrapper>
+    )}
   </ProgressiveImage>
 );
 
